@@ -30,12 +30,11 @@
                 </el-form>
             </el-col>
             <el-col :span="24">
-                <el-tooltip content="短信通知本月账单" effect="light">
-                    <el-button type="success" :icon="Bell">通知</el-button>
-                </el-tooltip>
-                <el-button :icon="Refresh" @click="resetQuery">重置</el-button>
                 <el-tooltip content="导出本月账单" effect="light">
-                    <el-button type="warning" :icon="Download" auto-insert-space plain >导出</el-button>
+                    <el-button type="success" :icon="Download" auto-insert-space plain >导出</el-button>
+                </el-tooltip>
+                <el-tooltip content="短信通知余额不足用户" effect="light">
+                    <el-button type="success" :icon="Bell">通知</el-button>
                 </el-tooltip>
             </el-col>
         </el-row>
@@ -85,19 +84,16 @@
                         </el-row>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" header-align="center" width="240">
+                <!-- <el-table-column label="操作" header-align="center" width="240">
                     <template #default="scope">
                         <el-button type="primary" link v-if="scope.row.status=='余额不足'">
                             <el-icon><EditPen /></el-icon>通知
                         </el-button>
                         <el-button type="primary" link >
-                            <el-icon><EditPen /></el-icon>修改
-                        </el-button>
-                        <el-button type="primary" link >
-                            <el-icon><EditPen /></el-icon>修改
+                            <el-icon><EditPen /></el-icon>详情
                         </el-button>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
                 <template #empty><el-empty v-if="billList.length === 0 && !loading" description="暂无数据"  /></template>
             </el-table>
             <div style="display: flex; justify-content: center; align-items: center;margin-top: 12px;">
@@ -213,5 +209,4 @@ async function handleCurrentChange(val) {
 </script>
 
 <style>
-
 </style>

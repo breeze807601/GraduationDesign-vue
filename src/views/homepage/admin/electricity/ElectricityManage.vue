@@ -19,10 +19,10 @@
                         <el-button type="primary" :icon="Search" @click="handleQuery">搜索</el-button>
                         <el-button :icon="Refresh" @click="resetQuery">重置</el-button>
                         <el-tooltip content="导出抄电表" placement="bottom" effect="light">
-                            <el-button type="warning" :icon="Download" auto-insert-space plain @click="download">导出</el-button>
+                            <el-button type="success" :icon="Download" auto-insert-space plain @click="download">导出</el-button>
                         </el-tooltip>
                         <el-tooltip content="导入抄电表" placement="bottom" effect="light">
-                            <el-button type="warning" :icon="Upload" auto-insert-space plain @click="dialogVisible = true">录入</el-button>
+                            <el-button type="success" :icon="Upload" auto-insert-space plain @click="dialogVisible = true">录入</el-button>
                         </el-tooltip>
                     </el-form-item>
                 </el-form>

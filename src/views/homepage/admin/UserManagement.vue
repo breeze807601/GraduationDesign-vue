@@ -19,8 +19,11 @@
                 </el-form>
             </el-col>
             <el-col :span="24">
-                <el-button type="primary" :icon="Plus" @click="openEdit('-1','-1',true)" auto-insert-space plain>新增</el-button><!-- 传参-1证明是新增住户 -->
-                <el-button type="warning" :icon="Download" auto-insert-space plain @click="exportUser">导出Excel</el-button>
+                <!-- 传参-1证明是新增住户 -->
+                <el-button type="primary" :icon="Plus" @click="openEdit('-1','-1',true)" auto-insert-space plain>新增</el-button>
+                <el-tooltip content="导出住户信息表格" effect="light">
+                    <el-button type="success" :icon="Download" auto-insert-space plain @click="exportUser">导出</el-button>
+                </el-tooltip>
             </el-col>
         </el-row>
     </div>
