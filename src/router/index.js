@@ -28,7 +28,15 @@ const routes = [
       {
         path: '/waterManage',
         component: () => import('@/views/homepage/admin/water/WaterManage.vue')
-      }
+      },
+      {
+        path: '/waterBill',
+        component: () => import('@/views/homepage/admin/water/WaterBill.vue')
+      },
+      {
+        path: '/statistics',
+        component: () => import('@/views/homepage/admin/Statistics.vue')
+      },
     ]
   },
   {

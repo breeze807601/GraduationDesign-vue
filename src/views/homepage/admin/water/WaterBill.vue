@@ -30,7 +30,7 @@
                 </el-form>
             </el-col>
             <el-col :span="24">
-                <el-tooltip content="导出本月用电账单" effect="light">
+                <el-tooltip content="导出本月用水账单" effect="light">
                     <el-button type="success" :icon="Download" auto-insert-space plain @click="download">导出</el-button>
                 </el-tooltip>
                 <el-tooltip content="通知提醒待支付住户" effect="light">
@@ -50,15 +50,15 @@
                     <template #default="scope">{{ scope.row.time }}</template>
                 </el-table-column>
                 <el-table-column label="上次读数" header-align="center" >
-                    <template #default="scope">{{ scope.row.previousReading }}   度</template>
+                    <template #default="scope">{{ scope.row.previousReading }}   方</template>
                 </el-table-column>
                 <el-table-column label="本次读数" header-align="center" >
-                    <template #default="scope">{{ scope.row.reading }}   度</template>
+                    <template #default="scope">{{ scope.row.reading }}   方</template>
                 </el-table-column>
-                <el-table-column label="本次用电量" header-align="center">
-                    <template #default="scope">{{ scope.row.summation }}   度</template>
+                <el-table-column label="本次用水量" header-align="center">
+                    <template #default="scope">{{ scope.row.summation }}   方</template>
                 </el-table-column>
-                <el-table-column label="结算价格(度/元)" header-align="center">
+                <el-table-column label="结算价格(方/元)" header-align="center">
                     <template #default="scope">{{ scope.row.price }}</template>
                 </el-table-column>
                 <el-table-column label="总费用" header-align="center">
@@ -187,7 +187,7 @@ const loading = ref(true)
 const billList = reactive([])
 async function getBillList() {
     loading.value = true;
-    await request.get('/electricityBill/list',{params: form.value}).then(res => {
+    await request.get('/waterBill/list',{params: form.value}).then(res => {
         billList.splice(0, billList.length);
         billList.push(...res.data.list);
         form.value.total = parseInt(res.data.total);
@@ -201,14 +201,14 @@ async function handleCurrentChange(val) {
 }
 // 导出
 async function download() {
-    await request.get('/electricityBill/export', {
+    await request.get('/waterBill/export', {
         responseType: 'blob', // 重要，确保返回的是文件流
         isDownload: true // 添加自定义标识符
     }).then(res => {
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', '本月用电账单.xlsx'); // 设置下载文件名
+        link.setAttribute('download', '本月用水账单.xlsx'); // 设置下载文件名
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link); // 下载完成后移除链接
@@ -222,7 +222,7 @@ const loadingButton1 = ref(false)
 const loadingButton2 = ref(false)
 async function noticeOfInsufficientBalance() {
     loadingButton1.value = true
-    await request.post("/electricityBill/noticeOfInsufficientBalance").then(res => {
+    await request.post("/waterBill/noticeOfInsufficientBalance").then(res => {
         ElMessage.success(res.data)
     })
     loadingButton1.value = false
@@ -230,7 +230,7 @@ async function noticeOfInsufficientBalance() {
 // 通知待支付住户
 async function notifyPayment() {
     loadingButton2.value = true
-    await request.post("/electricityBill/notifyPayment").then(res => {
+    await request.post("/waterBill/notifyPayment").then(res => {
         ElMessage.success(res.data)
     })
     loadingButton2.value = false
