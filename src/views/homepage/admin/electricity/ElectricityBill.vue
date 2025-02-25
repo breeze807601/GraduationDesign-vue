@@ -103,7 +103,7 @@
 import {reactive,ref,onMounted} from "vue";
 import request from "@/request/request"
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import {Search,Refresh,Plus,Download,Bell} from '@element-plus/icons-vue';
+import {Search,Refresh} from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus'
 
 onMounted(async () => {
