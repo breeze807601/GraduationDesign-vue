@@ -10,6 +10,9 @@
             </el-date-picker>
             <el-button style="margin-left: 10px;" type="primary" :icon="Search" @click="query">查看</el-button>
             <el-button style="margin-left: 10px;" :icon="RefreshLeft" @click="resetQuery">重置</el-button>
+            <el-tooltip content="切换查看平均数据或总量数据" effect="light" placement="top">
+                <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
+            </el-tooltip>
         </div>
         <div id="aggregateOption" style="width: 650px;height: 370px;" />
     </el-card>
@@ -20,7 +23,7 @@ import * as echarts from 'echarts';
 import request from "@/request/request"
 import { reactive, onMounted, ref } from 'vue';
 import { ElMessage } from 'element-plus';
-import {Search,RefreshLeft} from '@element-plus/icons-vue';
+import {Search,RefreshLeft,Help} from '@element-plus/icons-vue';
 
 onMounted(async () => {
     await getMonthlyUsage();
@@ -32,14 +35,20 @@ const loading = ref(false);
 var aggregateChart;
 const aggregateOption = {
     title: {
-        text: '总用水电情况'
+        text: '水电使用情况'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['总用电量','总用水量'],
+        data: ['总用电量','总用水量','平均用电','平均用水'],
         right: 10,
+        selected: {
+            '总用电量': true,
+            '总用水量': true,
+            '平均用电': false,
+            '平均用水': false,
+        }
     },
     //横轴
     xAxis: {
@@ -65,6 +74,18 @@ const aggregateOption = {
             data: [],//纵轴
             smooth:true
         },
+        {
+            name: '平均用电',
+            type: 'line',
+            data: [],//纵轴
+            smooth:true
+        },
+        {
+            name: '平均用水',
+            type: 'line',
+            data: [],//纵轴
+            smooth:true
+        },
     ]
 };
 
@@ -83,8 +104,8 @@ async function getMonthlyUsage() {  // 获取统计表数据
     }).then(res =>{
         //横轴数据和纵抽数据
         aggregateOption.xAxis.data = res.data.date;
-        aggregateOption.series[0].data = res.data.usage;
-        aggregateOption.series[1].data = res.data.average;
+        aggregateOption.series[0].data = res.data.num;
+        aggregateOption.series[2].data = res.data.avgNum;
     })
     await request.get('/waterBill/getMonthlyUsage',{
         params: {
@@ -93,7 +114,8 @@ async function getMonthlyUsage() {  // 获取统计表数据
         }
     }).then(res =>{
         //横轴数据和纵抽数据
-        aggregateOption.series[1].data = res.data.usage;
+        aggregateOption.series[1].data = res.data.num;
+        aggregateOption.series[3].data = res.data.avgNum;
     })
     loading.value = false;
     aggregateChart.setOption(aggregateOption);
@@ -125,6 +147,16 @@ async function resetQuery() {
     start.value = '';
     end.value = '';
     await getMonthlyUsage();
+}
+// 切换相关
+const isSelected = ref(true)   // 是否显示总量
+function change() {
+    isSelected.value = !isSelected.value;
+    aggregateOption.legend.selected.总用电量 = isSelected.value;
+    aggregateOption.legend.selected.总用水量 = isSelected.value;
+    aggregateOption.legend.selected.平均用电 = !isSelected.value;
+    aggregateOption.legend.selected.平均用水 = !isSelected.value;
+    aggregateChart.setOption(aggregateOption);
 }
 </script>
 
