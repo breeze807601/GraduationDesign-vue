@@ -4,14 +4,16 @@
         <cost-statistics class="statistics-item"></cost-statistics>
     </div>
     <div class="container" style="margin-top: 10px;">
-        <order-status-statistics></order-status-statistics>
+        <electricity-status-statistics class="statistics-item"></electricity-status-statistics>
+        <water-status-statistics class="statistics-item"></water-status-statistics>
     </div>
 </template>
 
 <script setup>
 import TotalStatistics from '@/components/statistics/TotalStatistics.vue';
 import CostStatistics from '@/components/statistics/CostStatistics.vue';
-import OrderStatusStatistics from '@/components/statistics/OrderStatusStatistics.vue';
+import ElectricityStatusStatistics from '@/components/statistics/ElectricityStatusStatistics.vue';
+import WaterStatusStatistics from '@/components/statistics/WaterStatusStatistics.vue';
 </script>
 
 <style>
