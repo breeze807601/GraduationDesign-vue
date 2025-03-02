@@ -15,6 +15,10 @@ const routes = [
     redirect: '/userManagement',  // 重定向
     children: [
       {
+        path: '/buildingManage',
+        component: () => import('@/components/BuildingManage.vue')
+      },
+      {
         path: '/userManagement',
         component: () => import('@/views/homepage/admin/UserManagement.vue')
       },

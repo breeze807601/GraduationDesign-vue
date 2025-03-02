@@ -24,6 +24,9 @@
                 <el-tooltip content="导出住户信息表格" effect="light">
                     <el-button type="success" :icon="Download" auto-insert-space plain @click="exportUser">导出</el-button>
                 </el-tooltip>
+                <el-tooltip content="打开楼房管理" effect="light">
+                    <el-button type="success" :icon="Download" auto-insert-space plain @click="drawer = true">楼房管理</el-button>
+                </el-tooltip>
             </el-col>
         </el-row>
     </div>
@@ -81,6 +84,10 @@
     <el-dialog v-model="isEdit" :before-close="handleClose" :title="editTitle" width="400" destroy-on-close center>
         <user-edit @close="close" :user-id="userId" :building-id="buildingId"></user-edit>
     </el-dialog>
+
+    <el-drawer v-model="drawer" title="楼房管理" :before-close="drawerHandleClose" size="40%">
+        <building-manage></building-manage>
+    </el-drawer>
 </template>
 
 <script setup>
@@ -90,6 +97,7 @@ import request from "@/request/request"
 import {Search,Refresh,Plus,EditPen,Delete,Download} from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import BuildingManage from "../../../components/BuildingManage.vue";
 
 onMounted(async () => {
     await getOption();
@@ -246,6 +254,17 @@ async function exportUser() {
     }).catch(err => {
         ElMessage.error('导出失败，请稍后再试');
     });
+}
+
+// 楼房管理
+const drawer = ref(false)
+
+function drawerHandleClose() {
+    ElMessageBox.confirm('确认关闭楼房管理吗?').then(() => {
+        drawer.value = false;
+        ElMessage.info("已关闭");
+        done()
+    })
 }
 </script>
 
