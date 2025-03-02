@@ -2,14 +2,10 @@
   <div class="common-layout">
         <el-container style="height: 100vh;">
             <el-aside width="200px" style="height: 100vh;border-right: 1px solid #ccc;background-color: #304156;" >
-                <el-menu default-active="1" background-color="#304156" text-color="#fff" @select="handleSelect">
+                <el-menu default-active="/userManagement" background-color="#304156" text-color="#fff" @select="handleSelect">
                     <div class="centered-item">
                         <span class="my-font" style="font-family:华文行楷">幸&nbsp;福&nbsp;小&nbsp;区</span>
                     </div>
-                    <el-menu-item index="1">
-                        <el-icon><HomeFilled /></el-icon>
-                        <span style="width: 100%;">首页</span>
-                    </el-menu-item>
                     <el-menu-item index="/userManagement">
                         <el-icon><User /></el-icon>
                         <span style="width: 100%;">住户管理</span>
@@ -50,9 +46,10 @@
             </el-aside>
             <el-container>
                 <el-header class="header-centered">
+                    <span style="font-size: 16px;margin-right: 6px;">欢迎您使用本系统，{{  userInfo.username }}</span>
                     <el-dropdown>
                         <span class="el-dropdown-link">
-                            {{ userInfo.username }}
+                            
                             <el-icon><ArrowDownBold /></el-icon>
                         </span>
                         <template #dropdown>
@@ -78,9 +75,6 @@
                 </el-form-item>
                 <el-form-item prop="confirmPw">
                     <el-input v-model="pwInfo.confirmPw" placeholder="请确认新密码" :prefix-icon="Lock" show-password />
-                </el-form-item>
-                <el-form-item class="button-group">
-                    
                 </el-form-item>
             </el-form>
             <template #footer>
