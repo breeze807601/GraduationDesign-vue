@@ -109,8 +109,8 @@ import {reactive,ref,onMounted} from "vue";
 import request from "@/request/request"
 import {Search,Refresh,Plus,Download,Upload} from '@element-plus/icons-vue';
 import Tariff from "@/components/Tariff.vue";
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import { ElMessage, ElMessageBox } from 'element-plus';
 import MyUpload from "@/components/MyUpload.vue";
 
 onMounted(async () => {

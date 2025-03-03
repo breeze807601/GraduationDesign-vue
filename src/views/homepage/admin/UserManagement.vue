@@ -25,7 +25,7 @@
                     <el-button type="success" :icon="Download" auto-insert-space plain @click="exportUser">导出</el-button>
                 </el-tooltip>
                 <el-tooltip content="打开楼房管理" effect="light">
-                    <el-button type="success" :icon="Download" auto-insert-space plain @click="drawer = true">楼房管理</el-button>
+                    <el-button type="primary" :icon="Management" auto-insert-space plain @click="drawer = true">楼房管理</el-button>
                 </el-tooltip>
             </el-col>
         </el-row>
@@ -85,7 +85,7 @@
         <user-edit @close="close" :user-id="userId" :building-id="buildingId"></user-edit>
     </el-dialog>
 
-    <el-drawer v-model="drawer" title="楼房管理" :before-close="drawerHandleClose" size="40%">
+    <el-drawer v-model="drawer" title="楼房管理" :before-close="drawerHandleClose" size="35%">
         <building-manage></building-manage>
     </el-drawer>
 </template>
@@ -94,7 +94,7 @@
 import {reactive,ref,onMounted} from "vue";
 import UserEdit from "@/components/UserEdit.vue";
 import request from "@/request/request"
-import {Search,Refresh,Plus,EditPen,Delete,Download} from '@element-plus/icons-vue';
+import {Search,Refresh,Plus,EditPen,Delete,Download,Management} from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import BuildingManage from "../../../components/BuildingManage.vue";
@@ -263,7 +263,6 @@ function drawerHandleClose() {
     ElMessageBox.confirm('确认关闭楼房管理吗?').then(() => {
         drawer.value = false;
         ElMessage.info("已关闭");
-        done()
     })
 }
 </script>

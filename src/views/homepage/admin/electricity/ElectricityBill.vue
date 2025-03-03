@@ -30,7 +30,7 @@
                 </el-form>
             </el-col>
             <el-col :span="24">
-                <el-tooltip content="导出本月用电账单" effect="light">
+                <el-tooltip content="导出上月用电账单" effect="light">
                     <el-button type="success" :icon="Download" auto-insert-space plain @click="download">导出</el-button>
                 </el-tooltip>
                 <el-tooltip content="通知提醒待支付住户" effect="light">
@@ -103,7 +103,7 @@
 import {reactive,ref,onMounted} from "vue";
 import request from "@/request/request"
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import {Search,Refresh} from '@element-plus/icons-vue';
+import {Search,Refresh,Plus,Download,Bell} from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus'
 
 onMounted(async () => {
@@ -208,7 +208,7 @@ async function download() {
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', '本月用电账单.xlsx'); // 设置下载文件名
+        link.setAttribute('download', '上月用电账单.xlsx'); // 设置下载文件名
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link); // 下载完成后移除链接

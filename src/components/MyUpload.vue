@@ -19,7 +19,8 @@ import { ElMessage } from 'element-plus';
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-    isWater: Boolean
+    isWater: Boolean,
+    isBuilding: Boolean
 });
 
 const emit = defineEmits(['close']);
@@ -46,21 +47,29 @@ async function upload(){        // 上传
     if (file.value) {
         const formData = new FormData();
         formData.append('file', file.value);
-        await request.post(
-            props.isWater ? waterMeter.value : electricityMeter.value,
-            formData
-        ).then(res => {
-            file.value = null;
-            fileList.value = [];  // 上传成功后清空列表
-            ElMessage.success('录入成功!');
-            now.value = res.data;
-            generateBill();
-            emit('close');  // 关闭父组件窗口
-        })
+        if (props.isBuilding) {   // 导入的是楼房
+            await request.post("/building/upload",formData).then(res => {
+                ElMessage.success('录入成功!');
+                loading.value = false;
+                emit('close');  // 关闭父组件窗口
+            }).catch(err => {
+                file.value = null;
+                fileList.value = [];  // 清空列表
+                loading.value = false;
+            })
+        } else {
+            await request.post(
+                props.isWater ? waterMeter.value : electricityMeter.value,
+                formData
+            ).then(res => {
+                ElMessage.success('录入成功!');
+                now.value = res.data;
+                generateBill();
+            })
+        }
     } else{
         ElMessage.error("未选中文件！")
     }
-    loading.value = false;
 }
 
 // 生成账单
@@ -72,6 +81,8 @@ async function generateBill() {
     formData.append('now', now.value);
     await request.post(props.isWater ? waterBill.value : electricityBill.value,formData).then(res => {
         console.log(res.data);
+        loading.value = false;
+        emit('close');  // 关闭父组件窗口
     })
 }
 </script>
