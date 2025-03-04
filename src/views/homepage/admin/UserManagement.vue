@@ -260,10 +260,19 @@ async function exportUser() {
 const drawer = ref(false)
 
 function drawerHandleClose() {
-    ElMessageBox.confirm('确认关闭楼房管理吗?').then(() => {
-        drawer.value = false;
-        ElMessage.info("已关闭");
-    })
+    ElMessageBox.confirm(
+        '确定要关闭楼房管理吗?',
+        '提示',
+        {
+            distinguishCancelAndClose: true,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(() => {
+            drawer.value = false;
+        }).catch(() => {
+            ElMessage.info('已取消')
+        }
+    )
 }
 </script>
 

@@ -11,7 +11,7 @@
                 <div class="centered-col">
                     <el-popconfirm width="250" :icon="null" @confirm="handleConfirm" @cancel="handleCancel">
                         <template #reference>
-                            <el-button @click="isOpen = true" plain><el-icon><Edit /></el-icon>修改</el-button>
+                            <el-button plain><el-icon><Edit /></el-icon>修改</el-button>
                         </template>
                         <template #actions="{ confirm, cancel }">
                             <div style="text-align: center;margin-bottom: 7px;">修改价格</div>
