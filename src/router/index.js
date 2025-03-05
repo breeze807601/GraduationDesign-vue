@@ -12,12 +12,8 @@ const routes = [
   {
     path: '/aHomepage',
     component: () => import('@/views/homepage/AdminHomePage.vue'),
-    redirect: '/userManagement',  // 重定向
+    redirect: '/statistics',  // 重定向
     children: [
-      {
-        path: '/buildingManage',
-        component: () => import('@/components/BuildingManage.vue')
-      },
       {
         path: '/userManagement',
         component: () => import('@/views/homepage/admin/UserManagement.vue')

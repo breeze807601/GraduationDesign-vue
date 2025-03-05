@@ -17,12 +17,12 @@
                     <el-row>
                         <el-col :span="4">
                             <el-form-item>
-                                <el-link @click="toAdminLogin()"  :underline="false">忘记密码 ?</el-link>
+                                <el-link :underline="false" @click="isOpen = true">忘记密码 ?</el-link>
                             </el-form-item>
                         </el-col>
                         <el-col :span="5" :offset="15">
                             <el-form-item>
-                                <el-link @click="toAdminLogin()"  :underline="false">管理登录 →</el-link>
+                                <el-link @click="toAdminLogin()"  :underline="false">物业登录 →</el-link>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -35,18 +35,25 @@
                 </el-form>
             </div>
         </el-card>
+        <el-dialog v-model="isOpen" :before-close="handleClose" title="忘记密码" width="600" destroy-on-close center>
+            <div class="dialog-content">
+                <forgot-password :isAdmin="false" @handleClose="handleClose" @close="close" />
+            </div>
+        </el-dialog>
     </el-card>
 </template>
 
 <script setup>
 import {reactive,ref} from "vue";
 import { User,Lock } from '@element-plus/icons-vue';
-import { ElMessage } from 'element-plus';
+import { ElMessage,ElMessageBox } from 'element-plus';
 import request from "@/request/request";
 import router from "@/router";
+import ForgotPassword from "@/components/ForgotPassword.vue"
 
 document.title = "幸福小区系统-登录";
 document.body.style.overflow = 'hidden';
+
 const form = reactive({
     username: '',
     password: ''
@@ -86,6 +93,27 @@ function toAdminLogin() {
     router.push("/adminLogin")
 }
 
+// 忘记密码
+const isOpen = ref(false)
+function handleClose() {
+    ElMessageBox.confirm(
+        '确定需要关闭修改密码页面吗?',
+        '提示',
+        {
+            distinguishCancelAndClose: true,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(() => {
+            isOpen.value = false;
+        }).catch(() => {
+            ElMessage.info('已取消')
+        }
+    )
+}
+// 修改成功后调用方法关闭窗口
+function close() {
+    isOpen.value = false;
+}
 </script>
 
 <style scoped>
@@ -118,5 +146,12 @@ function toAdminLogin() {
     display: inline-block;
     vertical-align: middle;
     margin-right: -0.0em;
+}
+.dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* 确保容器有足够的高度 */
+  margin-top: 15px;
 }
 </style>

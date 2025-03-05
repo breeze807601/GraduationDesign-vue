@@ -82,7 +82,7 @@
         </div>
     </div>
     <el-dialog v-model="isEdit" :before-close="handleClose" :title="editTitle" width="400" destroy-on-close center>
-        <user-edit @close="close" :user-id="userId" :building-id="buildingId"></user-edit>
+        <user-edit @close="close" :user-id="userId" :building-id="buildingId" />
     </el-dialog>
 
     <el-drawer v-model="drawer" title="楼房管理" :before-close="drawerHandleClose" size="35%">

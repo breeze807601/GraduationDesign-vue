@@ -3,7 +3,7 @@
         <el-card class="a-login-card" >
             <template #header>
                 <div class="a-container">
-                    <span>幸福小区系统-管理登录</span>
+                    <span>幸福小区系统-物业登录</span>
                 </div>
             </template>
             <div>
@@ -17,7 +17,7 @@
                     <el-row>
                         <el-col :span="4">
                             <el-form-item>
-                                <el-link @click="modPw()"  :underline="false">忘记密码 ?</el-link>
+                                <el-link @click="isOpen = true" :underline="false"><span>忘记密码 ?</span></el-link>
                             </el-form-item>
                         </el-col>
                         <el-col :span="5" :offset="15">
@@ -35,15 +35,21 @@
                 </el-form>
             </div>
         </el-card>
+        <el-dialog v-model="isOpen" :before-close="handleClose" title="忘记密码" width="600" destroy-on-close center>
+            <div class="dialog-content">
+                <forgot-password :isAdmin="true" @handleClose="handleClose" @close="close" />
+            </div>
+        </el-dialog>
     </el-card>
 </template>
 
 <script setup>
 import {reactive,ref} from "vue";
 import { User,Lock } from '@element-plus/icons-vue';
-import { ElMessage } from 'element-plus';
+import { ElMessage,ElMessageBox } from 'element-plus';
 import router from "@/router";
 import request from "@/request/request"
+import ForgotPassword from "@/components/ForgotPassword.vue"
 
 document.title = "幸福小区系统-登录";
 document.body.style.overflow = 'hidden';
@@ -89,6 +95,27 @@ function toLogin() {
     router.push("/")
 }
 
+// 忘记密码
+const isOpen = ref(false)
+function handleClose() {
+    ElMessageBox.confirm(
+        '确定需要关闭修改密码页面吗?',
+        '提示',
+        {
+            distinguishCancelAndClose: true,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(() => {
+            isOpen.value = false;
+        }).catch(() => {
+            ElMessage.info('已取消')
+        }
+    )
+}
+// 修改成功后调用方法关闭窗口
+function close() {
+    isOpen.value = false;
+}
 </script>
 
 <style scoped>
@@ -120,5 +147,12 @@ function toLogin() {
     display: inline-block;
     vertical-align: middle;
     margin-right: -0.0em;
+}
+.dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* 确保容器有足够的高度 */
+  margin-top: 15px;
 }
 </style>
