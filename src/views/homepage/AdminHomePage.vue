@@ -2,7 +2,7 @@
   <div class="common-layout">
         <el-container style="height: 100vh;">
             <el-aside width="200px" style="height: 100vh;border-right: 1px solid #ccc;background-color: #304156;" >
-                <el-menu default-active="/statistics" background-color="#304156" text-color="#fff" @select="handleSelect">
+                <el-menu default-active="/statistics" background-color="#304156" text-color="#fff" @select="handleSelect" >
                     <div class="centered-item">
                         <span class="my-font" style="font-family:华文行楷">幸&nbsp;福&nbsp;小&nbsp;区</span>
                     </div>
@@ -12,7 +12,7 @@
                     </el-menu-item>
                     <el-menu-item index="/userManagement">
                         <svg style="margin-right: 9px;" t="1740919198755" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5513" width="24" height="26"><path d="M512 796.672 210.944 796.672c0-59.392 10.24-100.352 59.392-118.784s112.64-40.96 149.504-71.68c40.96-34.816 30.72-34.816 20.48-47.104-14.336-16.384-16.384-57.344-16.384-57.344-43.008-12.288-32.768-81.92-22.528-81.92s10.24-4.096 4.096-40.96c-8.192-47.104-4.096-71.68 18.432-100.352S512 245.76 512 245.76l0 0c0 0 65.536 4.096 88.064 32.768s26.624 53.248 18.432 100.352c-6.144 36.864-6.144 40.96 4.096 40.96s18.432 69.632-22.528 81.92c0 0-2.048 40.96-16.384 57.344-10.24 12.288-20.48 12.288 20.48 47.104 36.864 30.72 100.352 55.296 149.504 71.68s59.392 59.392 59.392 118.784L512 796.672 512 796.672z" p-id="5514" fill="#cdcdcd"></path><path d="M835.584 765.952l98.304 0c0-43.008-8.192-75.776-45.056-88.064s-83.968-30.72-110.592-53.248c-30.72-26.624-22.528-26.624-14.336-34.816 10.24-12.288 12.288-43.008 12.288-43.008 30.72-8.192 24.576-59.392 16.384-59.392s-8.192-2.048-2.048-30.72c6.144-34.816 4.096-53.248-14.336-73.728-16.384-22.528-65.536-24.576-65.536-24.576l0 0c0 0-49.152 2.048-65.536 24.576-4.096 4.096-6.144 10.24-10.24 14.336 0 0 18.432 10.24 20.48 30.72 2.048 18.432 2.048 36.864-8.192 63.488s-14.336 40.96 8.192 61.44c12.288 10.24 4.096 55.296 4.096 55.296s57.344 30.72 118.784 51.2C841.728 679.936 835.584 765.952 835.584 765.952z" p-id="5515" fill="#cdcdcd"></path><path d="M188.416 765.952 90.112 765.952c0-43.008 8.192-75.776 45.056-88.064s83.968-30.72 110.592-53.248c30.72-26.624 22.528-26.624 14.336-34.816-10.24-12.288-12.288-43.008-12.288-43.008-30.72-8.192-24.576-59.392-16.384-59.392s8.192-2.048 2.048-30.72c-6.144-34.816-4.096-53.248 14.336-73.728 16.384-22.528 65.536-24.576 65.536-24.576l0 0c0 0 49.152 2.048 65.536 24.576 4.096 4.096 6.144 10.24 10.24 14.336 0 0-18.432 10.24-20.48 30.72-2.048 18.432-2.048 36.864 8.192 63.488s14.336 40.96-8.192 61.44c-12.288 10.24-4.096 55.296-4.096 55.296s-57.344 30.72-118.784 51.2C182.272 679.936 188.416 765.952 188.416 765.952z" p-id="5516" fill="#cdcdcd"></path></svg>
-                        <span style="width: 100%;">住户管理</span>
+                        <span style="width: 100%;">用户管理</span>
                     </el-menu-item>
                     <el-sub-menu index="3">
                         <template #title>
@@ -46,7 +46,7 @@
             </el-aside>
             <el-container>
                 <el-header class="header-centered">
-                    <span style="font-size: 16px;margin-right: 6px;">欢迎您使用本系统，{{  userInfo.username }}</span>
+                    <span style="font-size: 16px;margin-right: 6px;">欢迎您使用本系统，{{ userInfo.username }}</span>
                     <el-dropdown>
                         <span class="el-dropdown-link">
                             <el-icon><ArrowDownBold /></el-icon>
@@ -54,6 +54,7 @@
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item @click="isOpen = true">修改密码</el-dropdown-item>
+                                <el-dropdown-item @click="isModPhone = true">修改电话</el-dropdown-item>
                                 <el-dropdown-item divided @click="logOut()">退出登录</el-dropdown-item>
                             </el-dropdown-menu>
                         </template>
@@ -65,7 +66,7 @@
             </el-container>
         </el-container>
         <el-dialog v-model="isOpen" :before-close="handleClose" title="修改密码" width="400" destroy-on-close center>
-            <el-form :model="pwInfo" :rules="rules" scroll-to-error ref="ruleRef">
+            <el-form :model="pwInfo" :rules="rules" scroll-to-error ref="ruleRef" size="large">
                 <el-form-item prop="oldPw">
                     <el-input v-model="pwInfo.oldPw" placeholder="请输入原密码"  :prefix-icon="Lock" show-password />
                 </el-form-item>
@@ -81,6 +82,25 @@
                 <el-button type="primary" size="large" @click="checkForm" round>确定</el-button>
             </template>
         </el-dialog>
+        <el-dialog v-model="isModPhone" :before-close="phoneDialogClose" title="修改电话" width="400" destroy-on-close center>
+            <div class="form-content">
+                <el-form :model="phoneInfo" :rules="phoneRules" scroll-to-error ref="phoneRef" size="large">
+                    <el-form-item prop="code">
+                        <el-input style="width: 210px" v-model="phoneInfo.code" placeholder="请输入短信验证码" clearable/>
+                        <el-button style="width: 90px;" type="primary" :disabled="isCounting" @click="sendCode" link>
+                            {{ countdownText }}
+                        </el-button>
+                    </el-form-item>
+                    <el-form-item prop="newPhone">
+                        <el-input style="width: 300px" :disabled="!phoneInfo.code" v-model="phoneInfo.newPhone" placeholder="请输入新手机" :prefix-icon="Phone" show-password />
+                    </el-form-item>
+                </el-form>
+            </div>
+            <template #footer>
+                <el-button size="large" @click="phoneDialogClose" round>取消</el-button>
+                <el-button type="primary" size="large" @click="phoneCheckForm" round>确定</el-button>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
@@ -89,7 +109,7 @@ import router from '@/router';
 import request from "@/request/request"
 import { reactive,onMounted, ref } from 'vue';
 import { ElMessage } from 'element-plus';
-import { Lock } from '@element-plus/icons-vue';
+import { Lock,Phone } from '@element-plus/icons-vue';
 
 onMounted(async () => {
     await getUserInfo();
@@ -102,7 +122,8 @@ function handleSelect(key, keyPath) {
 const userInfo = reactive({
     id:'',
     username:'',
-    phone:''
+    phone:'',
+    power: null
 })
 
 async function getUserInfo() {
@@ -110,11 +131,11 @@ async function getUserInfo() {
         userInfo.username = res.data.username;
         userInfo.phone = res.data.phone;
         userInfo.id = res.data.id;
+        userInfo.power = res.data.power
     })
 }
 // 修改密码
 const isOpen = ref(false)
-
 const pwInfo = reactive({
     id:'',
     oldPw:'',
@@ -124,8 +145,21 @@ const pwInfo = reactive({
 const ruleRef = ref(null)
 const rules = {
     oldPw: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
-    newPw: [{ required: true, message: '请输入新密码', trigger: 'blur' }],
-    confirmPw: [{ required: true, message: '请确认新密码', trigger: 'blur' }]
+    newPw: [
+        { required: true, message: '请输入新密码', trigger: 'blur' },
+        { min: 6, message: '密码长度不能少于6位', trigger: 'blur' }
+    ],
+    confirmPw: [
+        { required: true, message: '请确认新密码', trigger: 'blur' },
+        { validator: (rule, value, callback) => {
+            if (value !== pwInfo.newPw) {
+            callback(new Error('两次输入的密码不一致'));
+            } else {
+            callback();
+            }
+        }, trigger: 'blur'
+        }
+    ]
 }
 function cancel() {
     isOpen.value = false;
@@ -138,12 +172,8 @@ function cancel() {
 function checkForm() {
     ruleRef.value.validate(valid => {
         if (valid) {
-            if (pwInfo.newPw === pwInfo.confirmPw) {
-                // 修改
-                update();
-            } else {
-                ElMessage.error('两次密码不一致')
-            }
+            // 修改
+            update();
         } else {
             ElMessage.error('登录信息有误！')
         }
@@ -165,6 +195,74 @@ function handleClose() {
     pwInfo.newPw = '';
     pwInfo.confirmPw = '';
 }
+
+// 修改电话相关
+const isModPhone = ref(false)
+
+const phoneRef = ref(null);
+const phoneRules = {
+    code: [
+        { required: true, message: '请输入验证码', trigger: 'blur' }
+    ],
+    newPhone: [
+        { required: true, message: '请输入手机号', trigger: 'blur' },
+        { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确', trigger: 'blur' }
+    ],
+};
+const phoneInfo = reactive({
+    id: null,
+    code: null,
+    newPhone: null,
+})
+function phoneDialogClose() {
+    isModPhone.value = false;
+    phoneInfo.id = null;
+    phoneInfo.code = null;
+    phoneInfo.newPhone = null;
+}
+function phoneCheckForm() {
+    phoneRef.value.validate((valid) => {
+        if (valid) {
+            updatePhone();
+        } else {
+            ElMessage.error('信息有误');
+        }
+    });
+}
+async function updatePhone() {
+    phoneInfo.id = userInfo.id;
+    await request.put('/admin/updatePhone', phoneInfo).then(res => {
+        ElMessage.success(res.data)
+        phoneDialogClose();
+    })
+}
+
+// 获取code和倒计时相关
+async function sendCode() {
+    await request.get('/admin/getCode',{params: {phone: userInfo.phone}}).then(res => {
+        ElMessage.success(res.data);
+        // 启动倒计时
+        startCountdown();
+    })
+};
+const countdownTime = ref(60);
+const isCounting = ref(false);
+const countdownText = ref('获取验证码');
+const startCountdown = () => {
+    isCounting.value = true; // 禁用按钮
+    countdownText.value = `${countdownTime.value} s`;
+    const countdownInterval = setInterval(() => {
+        countdownTime.value--;
+        if (countdownTime.value <= 0) {
+            clearInterval(countdownInterval);
+            countdownText.value = '获取验证码';
+            isCounting.value = false;
+            countdownTime.value = 60; // 重置倒计时
+        } else {
+            countdownText.value = `${countdownTime.value} s`;
+        }
+    }, 1000);
+};
 
 // 登出
 async function logOut() {
@@ -202,5 +300,12 @@ async function logOut() {
 .button-group {
     display: block;
     margin: 0 auto;
+}
+.form-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* 确保容器有足够的高度 */
+  margin-top: 15px;
 }
 </style>

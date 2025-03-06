@@ -35,6 +35,7 @@ const props = defineProps({
     buildingId: String,
 });
 const emit = defineEmits(['close']);
+
 onMounted(async () => {
     await getOption();
     if (props.userId != '-1') {

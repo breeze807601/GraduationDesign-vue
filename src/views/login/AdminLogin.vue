@@ -66,7 +66,6 @@ const rules = {
 function checkForm() {
     ruleRef.value.validate(valid => {
         if (valid) {
-            // 登录
             login();
         } else {
             ElMessage.error('登录信息有误！')
