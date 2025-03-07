@@ -3,13 +3,13 @@
         <el-card class="u-login-card" >
             <template #header>
                 <div class="u-container">
-                    <span>幸福小区系统-住户登录</span>
+                    <span style="font-family:华文行楷;font-size: 20px;margin-top: 7px;">幸福小区系统-住户登录</span>
                 </div>
             </template>
             <div>
                 <el-form :rules="rules" :model="form" size="large" ref="formRef">
-                    <el-form-item prop="username">
-                        <el-input v-model="form.username" placeholder="请输入手机号"  :prefix-icon="User" />
+                    <el-form-item prop="phone">
+                        <el-input v-model="form.phone" placeholder="请输入手机号"  :prefix-icon="User" />
                     </el-form-item>
                     <el-form-item prop="password">
                         <el-input v-model="form.password" placeholder="请输入密码" :prefix-icon="Lock" show-password />
@@ -27,7 +27,7 @@
                         </el-col>
                     </el-row>
                     <el-form-item >
-                        <el-button class="btn btn-loading" type="primary" :loading="loading" size="large" @click="login()" round>
+                        <el-button class="btn btn-loading" type="primary" :loading="loading" size="large" @click="checkForm()" round>
                             <span v-if="!loading">登录</span>
                             <span v-else>登录中...</span>
                         </el-button>
@@ -55,13 +55,13 @@ document.title = "幸福小区系统-登录";
 document.body.style.overflow = 'hidden';
 
 const form = reactive({
-    username: '',
+    phone: '',
     password: ''
 })
 
 const formRef = ref(null);
 const rules = {
-  username: [{ required: true, message: '请输入手机号', trigger: 'blur' },
+    phone: [{ required: true, message: '请输入手机号', trigger: 'blur' },
     {
         pattern: /^1(3|4|5|6|7|8|9)\d{9}$/,
         message: '手机号错误',
@@ -72,25 +72,28 @@ const rules = {
 
 const loading = ref(false)
 
-async function login() {
+async function checkForm() {
     loading.value = true;
     formRef.value.validate((valid) => {
         if (valid) {
-            // 模拟登录请求
-            setTimeout(() => {
-                loading.value = false;
-                ElMessage.success('登录成功');
-            }, 2000);
-            router.push("/uHomepage")
+            login()
         } else {
             ElMessage.error('登录信息有误！');
         }
     });
-    loading.value = false;
 }
 
 function toAdminLogin() {
     router.push("/adminLogin")
+}
+
+// 登录
+async function login() {
+    await request.post('/user/login',form).then(res => {
+        ElMessage.success(res.data)
+        loading.value = false;
+        router.push("/uHomepage")
+    })
 }
 
 // 忘记密码
@@ -118,7 +121,7 @@ function close() {
 
 <style scoped>
 .u-login {
-  background-image: url(//homework1015.oss-cn-beijing.aliyuncs.com/login.jpg);
+  background-image: url(https://homework1015.oss-cn-beijing.aliyuncs.com/login.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -130,6 +133,10 @@ function close() {
     top: 50%;
     width: 450px;
     transform: translate(-50%, -50%);
+    border-radius: 15px; /* 设置圆角大小 */
+    overflow: hidden; /* 防止内部元素溢出 */
+    background-color: rgba(255, 255, 255, 0.8); /* 设置半透明背景，白色背景透明度为 80% */
+    backdrop-filter: blur(10px); /* 可选：添加背景模糊效果 */
 }
 .u-container{
     display: flex;

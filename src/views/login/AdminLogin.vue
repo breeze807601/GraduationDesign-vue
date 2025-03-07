@@ -3,7 +3,7 @@
         <el-card class="a-login-card" >
             <template #header>
                 <div class="a-container">
-                    <span>幸福小区系统-物业登录</span>
+                    <span style="font-family:华文行楷;font-size: 20px;margin-top: 7px;">幸福小区系统-物业登录</span>
                 </div>
             </template>
             <div>
@@ -119,7 +119,7 @@ function close() {
 
 <style scoped>
 .a-login {
-  background-image: url(//homework1015.oss-cn-beijing.aliyuncs.com/login.jpg);
+  background-image: url(https://homework1015.oss-cn-beijing.aliyuncs.com/login.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -130,6 +130,10 @@ function close() {
     top: 50%;
     width: 450px;
     transform: translate(-50%, -50%);
+    border-radius: 15px; /* 设置圆角大小 */
+    overflow: hidden; /* 防止内部元素溢出 */
+    background-color: rgba(255, 255, 255, 0.8); /* 设置半透明背景，白色背景透明度为 80% */
+    backdrop-filter: blur(10px); /* 可选：添加背景模糊效果 */
 }
 .a-container{
     display: flex;

@@ -24,6 +24,9 @@
                 <el-tooltip content="导出住户信息表格" effect="light">
                     <el-button type="success" :icon="Download" auto-insert-space plain @click="exportUser">导出</el-button>
                 </el-tooltip>
+                <el-tooltip content="打开管理员管理" effect="light">
+                    <el-button type="primary" :icon="UserFilled" auto-insert-space plain @click="adminDrawer = true">管理员管理</el-button>
+                </el-tooltip>
                 <el-tooltip content="打开楼房管理" effect="light">
                     <el-button type="primary" :icon="Management" auto-insert-space plain @click="drawer = true">楼房管理</el-button>
                 </el-tooltip>
@@ -84,9 +87,11 @@
     <el-dialog v-model="isEdit" :before-close="handleClose" :title="editTitle" width="400" destroy-on-close center>
         <user-edit @close="close" :user-id="userId" :building-id="buildingId" />
     </el-dialog>
-
     <el-drawer v-model="drawer" title="楼房管理" :before-close="drawerHandleClose" size="35%">
         <building-manage></building-manage>
+    </el-drawer>
+    <el-drawer v-model="adminDrawer" title="管理员管理" :before-close="adminDrawerClose" size="40%" direction="ltr">
+        <admin-manage></admin-manage>
     </el-drawer>
 </template>
 
@@ -94,10 +99,11 @@
 import {reactive,ref,onMounted} from "vue";
 import UserEdit from "@/components/UserEdit.vue";
 import request from "@/request/request"
-import {Search,Refresh,Plus,EditPen,Delete,Download,Management} from '@element-plus/icons-vue';
+import {Search,Refresh,Plus,EditPen,Delete,Download,Management,UserFilled} from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import BuildingManage from "../../../components/BuildingManage.vue";
+import AdminManage from "@/components/AdminManage.vue";
 
 onMounted(async () => {
     await getOption();
@@ -269,6 +275,25 @@ function drawerHandleClose() {
             cancelButtonText: '取消',
         }).then(() => {
             drawer.value = false;
+        }).catch(() => {
+            ElMessage.info('已取消')
+        }
+    )
+}
+
+// 管理员管理
+const adminDrawer = ref(false)
+
+function adminDrawerClose() {
+    ElMessageBox.confirm(
+        '确定要关闭管理员管理吗?',
+        '提示',
+        {
+            distinguishCancelAndClose: true,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(() => {
+            adminDrawer.value = false;
         }).catch(() => {
             ElMessage.info('已取消')
         }
