@@ -10,7 +10,7 @@
                         <el-cascader :options="buildingOption" :props="myProps" v-model="option" clearable style="width: 220px;" />
                     </el-form-item>
                     <el-form-item label="日期" prop="phone" >
-                        <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="month" placeholder="选择月份">
+                        <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="month" placeholder="选择月份" :disabled-date="disabledDate">
                             <template #default="cell">
                                 <div class="el-date-table-cell" :class="{ current: cell.isCurrent }">
                                     <span class="el-date-table-cell__text">{{ cell.text + 1 }}月</span>
@@ -110,6 +110,11 @@ onMounted(async () => {
     await getOption();
     await getBillList();
 });
+
+// 日期禁用设置
+const disabledDate = (time) => {
+    return time.getTime() > Date.now();
+};
 
 // 搜索相关
 const form = ref({

@@ -38,7 +38,7 @@ const emit = defineEmits(['close']);
 
 onMounted(async () => {
     await getOption();
-    if (props.userId != '-1') {
+    if (props.userId !== '-1') {
         await getUserInfo();
     }
 });

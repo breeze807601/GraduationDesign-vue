@@ -1,12 +1,14 @@
 <template>
-    <div class="container">
-        <total-statistics class="statistics-item"></total-statistics>
-        <cost-statistics class="statistics-item"></cost-statistics>
-    </div>
-    <div class="container" style="margin-top: 10px;">
-        <electricity-status-statistics class="statistics-item"></electricity-status-statistics>
-        <water-status-statistics class="statistics-item"></water-status-statistics>
-    </div>
+    <el-scrollbar>
+        <div class="container">
+            <total-statistics class="statistics-item"></total-statistics>
+            <cost-statistics class="statistics-item"></cost-statistics>
+        </div>
+        <div class="container" style="margin-top: 10px;">
+            <electricity-status-statistics class="statistics-item"></electricity-status-statistics>
+            <water-status-statistics class="statistics-item"></water-status-statistics>
+        </div>
+    </el-scrollbar>
 </template>
 
 <script setup>

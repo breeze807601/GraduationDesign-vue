@@ -3,17 +3,17 @@
         <el-row>
             <el-col :span="24">
                 <el-form :model="form" inline>
+                    <el-form-item label="住宅">
+                        <el-cascader :options="buildingOption" :props="myProps" v-model="option" clearable />
+                    </el-form-item>
                     <el-form-item label="日期">
-                        <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="month" placeholder="选择月份">
+                        <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="month" placeholder="选择月份" :disabled-date="disabledDate">
                             <template #default="cell">
-                                <div class="el-date-table-cell" :class="{ current: cell.isCurrent }">
+                                <div class="el-date-table-cell" :class="{ current: cell.isCurrent }" >
                                     <span class="el-date-table-cell__text">{{ cell.text + 1 }}月</span>
                                 </div>
                             </template>
                         </el-date-picker>
-                    </el-form-item>
-                    <el-form-item label="住宅">
-                        <el-cascader :options="buildingOption" :props="myProps" v-model="option" clearable />
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" :icon="Search" @click="handleQuery">搜索</el-button>
@@ -117,6 +117,11 @@ onMounted(async () => {
     await getOption();
     await getMeterList();
 });
+
+// 日期禁用设置
+const disabledDate = (time) => {
+    return time.getTime() > Date.now();
+};
 
 // 加载
 const loading = ref(true)

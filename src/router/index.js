@@ -12,8 +12,12 @@ const routes = [
   {
     path: '/aHomepage',
     component: () => import('@/views/homepage/AdminHomePage.vue'),
-    redirect: '/statistics',  // 重定向
+    redirect: '/mainPage',  // 重定向
     children: [
+      {
+        path: '/mainPage',
+        component: () => import('@/views/homepage/admin/MainPage.vue')
+      },
       {
         path: '/userManagement',
         component: () => import('@/views/homepage/admin/UserManagement.vue')
@@ -33,6 +37,10 @@ const routes = [
       {
         path: '/waterBill',
         component: () => import('@/views/homepage/admin/water/WaterBill.vue')
+      },
+      {
+        path: '/noticeManage',
+        component: () => import('@/views/homepage/admin/NoticeManage.vue')
       },
       {
         path: '/statistics',
