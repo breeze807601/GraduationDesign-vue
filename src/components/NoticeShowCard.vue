@@ -2,8 +2,8 @@
     <div>
         <el-card style="">
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 16px;color: black">公告</span>
-                <el-button type="primary" link size="large" style="font-size: 16px" @click="router.push('/noticeManage')">
+                <span style="font-size: 1rem;color: black">公告</span>
+                <el-button type="primary" link size="large" style="font-size: 1rem" @click="router.push('/noticeManage')">
                     更多<el-icon class="el-icon--right"><DArrowRight /></el-icon>
                 </el-button>
             </div>

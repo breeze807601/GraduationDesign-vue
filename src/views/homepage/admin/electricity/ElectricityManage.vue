@@ -31,8 +31,8 @@
         <div style="display: flex; align-items: flex-start;">
             <tariff :isAdmin="true" :isWater="false"></tariff>
         </div>
-        <div style="margin-top: 20px;width: 90%;margin-left: auto; margin-right: auto; text-align: center;">
-            <el-table :data="meterList" style="width: 100%;height: 69vh;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed" border>
+        <div style="margin-top: 1.5rem;width: 90%;margin-left: auto; margin-right: auto; text-align: center;">
+            <el-table :data="meterList" style="width: 100%;height: 42.5rem;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed" border>
                 <el-table-column label="户主姓名" header-align="center">
                     <template #default="scope">{{ scope.row.name }}</template>
                 </el-table-column>

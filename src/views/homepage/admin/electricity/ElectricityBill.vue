@@ -41,8 +41,8 @@
                 </el-tooltip>
             </el-col>
         </el-row>
-        <div style="margin-top: 20px;width: 100%;margin-left: auto; margin-right: auto; text-align: center;" >
-            <el-table :data="billList" style="width: 100%;height: 73.7vh;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed" border>
+        <div style="margin-top: 1.5rem;width: 100%;margin-left: auto; margin-right: auto; text-align: center;" >
+            <el-table :data="billList" style="width: 100%;height: 45.5rem;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed" border>
                 <el-table-column label="户主姓名" header-align="center">
                     <template #default="scope">{{ scope.row.name }}</template>
                 </el-table-column>

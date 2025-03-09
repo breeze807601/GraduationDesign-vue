@@ -21,8 +21,8 @@
             </el-col>
         </el-row>
         <div style="margin-top: 20px">
-            <el-table :data="noticeList" style="width: 100%;height: 76.9vh;" stripe v-loading="loading" :cell-style="{ textAlign: 'center',fontSize: '16px' }"
-                      :row-style="{ height: '55px' }" table-layout="fixed" border>
+            <el-table :data="noticeList" style="width: 100%;height: 46.65rem;" stripe v-loading="loading" :cell-style="{ textAlign: 'center',fontSize: '1.1rem' }"
+                      :row-style="{ height: '3.4rem' }" table-layout="fixed" border>
                 <el-table-column label="标题" header-align="center">
                     <template #default="scope">{{ scope.row.title }}</template>
                 </el-table-column>

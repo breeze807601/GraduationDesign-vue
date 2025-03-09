@@ -33,8 +33,8 @@
             </el-col>
         </el-row>
     </div>
-    <div style="margin-top: 20px;width: 90%;margin-left: auto; margin-right: auto; text-align: center;">
-        <el-table :data="userList" style="width: 100%;height: 73.8vh;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed">
+    <div style="margin-top: 1.5rem;width: 90%;margin-left: auto; margin-right: auto; text-align: center;">
+        <el-table :data="userList" style="width: 100%;height: 45.7rem;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed">
             <el-table-column label="户主姓名" header-align="center">
                 <template #default="scope">{{ scope.row.name }}</template>
             </el-table-column>
@@ -77,7 +77,7 @@
             </el-table-column>
             <template #empty><el-empty v-if="userList.length === 0 && !loading" description="暂无数据" /></template>
         </el-table>
-        <div style="display: flex; justify-content: center; align-items: center;margin-top: 7px;">
+        <div style="display: flex; justify-content: center; align-items: center;margin-top: 0.8rem;">
             <el-config-provider :locale="zhCn">
                 <el-pagination v-model:current-page="form.pageNo" layout="total, prev, pager, next, jumper" :total="form.total"
                                        :page-size="form.pageSize"  @current-change="handleCurrentChange"/>

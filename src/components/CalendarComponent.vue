@@ -1,5 +1,5 @@
 <template>
-    <el-card style="height: 720px; width: 750px; position: relative;">
+    <el-card style="height: 43rem; width: 45rem; position: relative;">
         <el-config-provider :locale="zhCn" >
             <div class="dashboard-container">
                 <el-calendar ref="myCalendar" >

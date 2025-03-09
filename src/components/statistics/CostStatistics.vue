@@ -1,6 +1,6 @@
 <template>
-    <el-card style="width: 700px;" v-loading="loading">
-        <div style="margin-bottom: 15px;text-align: center;">
+    <el-card style="width: 42rem;" v-loading="loading">
+        <div style="margin-bottom: 1rem;text-align: center;">
             <el-date-picker v-model="date" value-format="YYYY-MM-DD" type="monthrange" range-separator="至" start-placeholder="起始月" end-placeholder="终点月" :disabledDate="disabledDate">
                 <template #default="cell">
                     <div class="el-date-table-cell" :class="{ current: cell.isCurrent }">

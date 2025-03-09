@@ -1,9 +1,12 @@
 <template>
     <div class="container" style="display: flex; width: 100%;">
-        <div class="item" style="display: flex; justify-content: center; width: 40%; margin-right: 20px">
+        <div style="width: 8%"></div>
+        <div class="item" style="display: flex; justify-content: center; width: 38%; margin-right: 20px">
             <notice-show-card style="width: 100%;"/>
         </div>
+        <div style="width: 4%"></div>
         <calender style="flex: 1;" />
+        <div style="width: 8%"></div>
     </div>
 </template>
 

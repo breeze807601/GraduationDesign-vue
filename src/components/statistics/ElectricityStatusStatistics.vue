@@ -1,6 +1,6 @@
 <template>
-    <el-card style="width: 700px;display: flex; justify-content: center; align-items: center;" v-loading="loading">
-        <div id="electricityOption" style="width: 650px;height: 370px;" />
+    <el-card style="width: 42rem;display: flex; justify-content: center; align-items: center;" v-loading="loading">
+        <div id="electricityOption" style="width: 41rem;height: 22rem" />
     </el-card>
 </template>
 
