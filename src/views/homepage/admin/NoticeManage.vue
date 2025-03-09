@@ -76,11 +76,14 @@
 <script setup>
 import request from "@/request/request";
 import {ref, reactive, onMounted} from "vue";
-import {Download, Refresh, Search, Plus, EditPen, Delete} from "@element-plus/icons-vue";
+import { Refresh, Search, Plus, EditPen, Delete } from "@element-plus/icons-vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import NoticeAddOrMod from "@/components/NoticeAddOrMod.vue";
 import NoticeDetails from "@/components/NoticeDetails.vue";
+
+document.title = "公告";
+document.body.style.overflow = 'hidden';
 
 const loading = ref(false)  // 加载
 

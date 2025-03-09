@@ -105,6 +105,9 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import BuildingManage from "../../../components/BuildingManage.vue";
 import AdminManage from "@/components/AdminManage.vue";
 
+document.title = "用户管理";
+document.body.style.overflow = 'hidden';
+
 onMounted(async () => {
     await getOption();
     await getUserList();

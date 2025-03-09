@@ -113,6 +113,9 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import MyUpload from "@/components/MyUpload.vue";
 
+document.title = "用电记录";
+document.body.style.overflow = 'hidden';
+
 onMounted(async () => {
     await getOption();
     await getMeterList();

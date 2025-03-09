@@ -31,19 +31,19 @@ const electricityOption = {
             radius: '50%',
             data: [],
             itemStyle: {
-                normal: {
-                    color: function (colors) {
-                        var colorList = [
-                            '#fc8251',
-                            '#5470c6',
-                            '#9A60B4',
-                            '#ef6567',
-                            '#f9c956',
-                            '#3BA272'
-                        ];
-                        return colorList[colors.dataIndex];
+                color: function (params) {
+                    switch (params.name) {
+                        case '待支付':
+                            return '#e3d30c';
+                        case '已支付':
+                            return '#0fe312';
+                        case '余额不足':
+                            return '#e00c0c';
                     }
                 },
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
         }
     ]

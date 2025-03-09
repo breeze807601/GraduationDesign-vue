@@ -106,6 +106,9 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import {Search,Refresh,Plus,Download,Bell} from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus'
 
+document.title = "用水账单";
+document.body.style.overflow = 'hidden';
+
 onMounted(async () => {
     await getOption();
     await getBillList();

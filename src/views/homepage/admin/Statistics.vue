@@ -1,5 +1,5 @@
 <template>
-    <el-scrollbar>
+    <div style="width: 100%;height: 100%">
         <div class="container">
             <total-statistics class="statistics-item"></total-statistics>
             <cost-statistics class="statistics-item"></cost-statistics>
@@ -8,7 +8,7 @@
             <electricity-status-statistics class="statistics-item"></electricity-status-statistics>
             <water-status-statistics class="statistics-item"></water-status-statistics>
         </div>
-    </el-scrollbar>
+    </div>
 </template>
 
 <script setup>
@@ -16,6 +16,9 @@ import TotalStatistics from '@/components/statistics/TotalStatistics.vue';
 import CostStatistics from '@/components/statistics/CostStatistics.vue';
 import ElectricityStatusStatistics from '@/components/statistics/ElectricityStatusStatistics.vue';
 import WaterStatusStatistics from '@/components/statistics/WaterStatusStatistics.vue';
+
+document.title = "统计";
+document.body.style.overflow = 'hidden';
 </script>
 
 <style>
