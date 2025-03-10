@@ -14,7 +14,7 @@
                 <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
             </el-tooltip>
         </div>
-        <div id="costOption" style="width: 650px;height: 370px;" />
+        <div id="costOption" style="width: 40rem;height: 22rem;" />
     </el-card>
 </template>
 

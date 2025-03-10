@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card style="">
+        <el-card>
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-size: 1rem;color: black">公告</span>
                 <el-button type="primary" link size="large" style="font-size: 1rem" @click="router.push('/noticeManage')">
@@ -10,7 +10,7 @@
             <el-divider>
                 <el-icon><star-filled /></el-icon>
             </el-divider>
-            <el-table :data="noticeList" style="width: 100%;margin-bottom: 5px" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }"
+            <el-table :data="noticeList" style="width: 100%;height: 12.5rem;margin-bottom: 5px" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }"
                       table-layout="fixed" >
                 <el-table-column label="标题" header-align="center">
                     <template #default="scope">{{ scope.row.title }}</template>

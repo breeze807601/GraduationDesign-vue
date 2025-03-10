@@ -78,7 +78,7 @@ function popconfirmCancel() {
     ElMessage.info('已取消');
 }
 async function add() {
-    await request.post('/building/addOrUpdate', building).then(res => {
+    await request.post('/building/add', building).then(res => {
         ElMessage.success("添加成功!");
     })
     emit('close');  // 刷新

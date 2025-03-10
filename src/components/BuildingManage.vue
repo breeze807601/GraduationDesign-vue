@@ -36,7 +36,7 @@
                 <el-table-column label="操作" header-align="center">
                     <template #default="scope">
                         <building-add-or-mod :is-add="false" :building-info="scope.row" @close="close" />
-                        <el-popconfirm title="确定删除该楼房吗?" width="250" :icon="InfoFilled" @confirm="popconfirmConfirm(scope.row.id)" @cancel="ElMessage.info('已取消')">
+                        <el-popconfirm title="确定删除该楼房吗?" width="250" :icon="InfoFilled" @confirm="deleteBuilding(scope.row.id)" @cancel="ElMessage.info('已取消')">
                             <template #reference>
                                 <el-button type="primary" link ><el-icon><Delete /></el-icon>删除</el-button>
                             </template>
@@ -168,7 +168,7 @@ async function exportBuilding() {
 }
 
 // 删除
-async function popconfirmConfirm(id) {
+async function deleteBuilding(id) {
     await request.delete(`/building/delete/${id}`).then(res => {
         ElMessage.success(res.data);
         getList();

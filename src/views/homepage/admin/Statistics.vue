@@ -4,7 +4,7 @@
             <total-statistics class="statistics-item"></total-statistics>
             <cost-statistics class="statistics-item"></cost-statistics>
         </div>
-        <div class="container" style="margin-top: 10px;">
+        <div class="container" style="margin-top: 1rem;">
             <electricity-status-statistics class="statistics-item"></electricity-status-statistics>
             <water-status-statistics class="statistics-item"></water-status-statistics>
         </div>
@@ -28,6 +28,6 @@ document.body.style.overflow = 'hidden';
   align-items: center; /* 垂直居中 */
 }
 .statistics-item {
-  margin: 0 10px; /* 给两个组件之间添加一些间距 */
+  margin: 0 3rem; /* 给两个组件之间添加一些间距 */
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <el-card style="width: 42rem;display: flex; justify-content: center; align-items: center;" v-loading="loading">
-        <div id="waterOption" style="width: 41rem;height: 22rem"/>
+        <div id="waterOption" style="width: 41rem;height: 20rem"/>
     </el-card>
 </template>
 

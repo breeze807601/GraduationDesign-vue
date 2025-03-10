@@ -75,7 +75,7 @@
                     </el-button>
                 </template>
             </el-table-column>
-            <template #empty><el-empty v-if="userList.length === 0 && !loading" description="暂无数据" /></template>
+            <template #empty><el-empty v-if="userList.length === 0 && !loading" description="暂无数据或住户已删除" /></template>
         </el-table>
         <div style="display: flex; justify-content: center; align-items: center;margin-top: 0.8rem;">
             <el-config-provider :locale="zhCn">
@@ -111,6 +111,12 @@ document.body.style.overflow = 'hidden';
 onMounted(async () => {
     await getOption();
     await getUserList();
+    const shouldOpenDrawer = localStorage.getItem('drawer')
+    if (shouldOpenDrawer === 'true') {
+        drawer.value = true
+        // 使用后清除，防止刷新页面时再次打开
+        localStorage.removeItem('drawer')
+    }
 });
 
 // 加载

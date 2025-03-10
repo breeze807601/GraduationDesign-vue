@@ -160,7 +160,7 @@ async function deleteAdmin(id) {
       cancelButtonText: '取消',
       type: 'warning',
     }).then(async () => {
-        await request.delete(`/admin/delete?id=${id}`).then(res => {
+        await request.delete(`/admin/delete/${id}`).then(res => {
             ElMessage.success(res.data)
             getList();
         })
@@ -188,7 +188,7 @@ async function adminAddOrMod(is,id) {
     } else {
         dilaogTitle.value = '修改管理'
         // 获取该管理员信息
-        await request.get('/admin/getAdminInfo',{params:{id: id}}).then(res => {
+        await request.get(`/admin/getAdminInfo/${id}`).then(res => {
             adminInfo.id = res.data.id;
             adminInfo.username = res.data.username;
             adminInfo.phone = res.data.phone;
@@ -271,7 +271,7 @@ async function resetPw(id) {
       cancelButtonText: '取消',
       type: 'warning',
     }).then(async () => {
-        await request.put(`/admin/resetPassword?id=${id}`).then(res => {
+        await request.put(`/admin/resetPassword/${id}`).then(res => {
             ElMessage.success(res.data);
         })
     }).catch(() => {
