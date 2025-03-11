@@ -21,19 +21,13 @@
             <el-col :span="24">
                 <!-- 传参-1证明是新增住户 -->
                 <el-button type="primary" :icon="Plus" @click="openEdit('-1','-1',true)" auto-insert-space plain>新增</el-button>
-                <el-tooltip content="导出住户信息表格" effect="light">
-                    <el-button type="success" :icon="Download" auto-insert-space plain @click="exportUser">导出</el-button>
-                </el-tooltip>
-                <el-tooltip content="打开管理员管理" effect="light">
-                    <el-button type="primary" :icon="UserFilled" auto-insert-space plain @click="adminDrawer = true">管理员管理</el-button>
-                </el-tooltip>
-                <el-tooltip content="打开楼房管理" effect="light">
-                    <el-button type="primary" :icon="Management" auto-insert-space plain @click="drawer = true">楼房管理</el-button>
-                </el-tooltip>
+                <el-button type="success" :icon="Download" auto-insert-space plain @click="exportUser">导出</el-button>
+                <el-button type="primary" :icon="UserFilled" auto-insert-space plain @click="adminDrawer = true">管理员管理</el-button>
+                <el-button type="primary" :icon="Management" auto-insert-space plain @click="drawer = true">楼房管理</el-button>
             </el-col>
         </el-row>
     </div>
-    <div style="margin-top: 1.5rem;width: 90%;margin-left: auto; margin-right: auto; text-align: center;">
+    <div style="margin-top: 1.5rem;width: 100%;margin-left: auto; margin-right: auto; text-align: center;">
         <el-table :data="userList" style="width: 100%;height: 45.7rem;" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }" table-layout="fixed">
             <el-table-column label="户主姓名" header-align="center">
                 <template #default="scope">{{ scope.row.name }}</template>

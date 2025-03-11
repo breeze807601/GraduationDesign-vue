@@ -1,7 +1,7 @@
 <template>
       <div class="common-layout">
-            <el-container style="height: 100vh;">
-                <el-aside width="200px" style="height: 100vh;border-right: 1px solid #ccc;background-color: #304156;" >
+            <el-container style="height: 100%;">
+                <el-aside width="200px" style="height: 100%;background-color: #304156;" >
                     <el-menu :default-active="router.currentRoute.value.path" background-color="#304156" text-color="#fff" @select="handleSelect" >
                         <div class="centered-item">
                             <span class="my-font" style="font-family:华文行楷">幸&nbsp;福&nbsp;小&nbsp;区</span>

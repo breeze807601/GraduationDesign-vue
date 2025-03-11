@@ -26,8 +26,10 @@
                 <el-table-column label="标题" header-align="center">
                     <template #default="scope">{{ scope.row.title }}</template>
                 </el-table-column>
-                <el-table-column show-overflow-tooltip label="内容" header-align="center">
-                    <template #default="scope">{{ scope.row.content }}</template>
+                <el-table-column label="内容" header-align="center">
+                    <template #default="scope">
+                        <el-text truncated style="font-size: 1.2rem">{{ scope.row.content }}</el-text>
+                    </template>
                 </el-table-column>
                 <el-table-column label="发布时间" header-align="center">
                     <template #default="scope">{{ scope.row.time }}</template>

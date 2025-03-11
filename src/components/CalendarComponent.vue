@@ -1,13 +1,12 @@
 <template>
-    <el-card style="height: 43rem; width: 45rem; position: relative;">
+    <el-card style="height: 41.5rem; width: 45rem; position: relative;">
         <el-config-provider :locale="zhCn" >
             <div class="dashboard-container">
-                <el-calendar ref="myCalendar" >
+                <el-calendar ref="myCalendar">
                     <template #header="{ date }">
                         <div style="display: flex; align-items: center; justify-content: center;">
                             <span style="font-size: 21px;">{{ date }}</span>
                         </div>
-<!--                        <span style="font-size: 20px;height: 100%;align-items: center; ">{{ date }}</span>-->
                         <el-button-group>
                             <el-button size="large" @click="selectDate('prev-year')">上一年</el-button>
                             <el-button size="large" @click="selectDate('prev-month')">上个月</el-button>
@@ -17,7 +16,7 @@
                         </el-button-group>
                     </template>
                     <template #date-cell="{ data }">
-                        <div :class="{ selected : isSelected(date, data) }">
+                        <div style="width: 4.4rem;height: 4.4rem" :class="{ selected : isSelected(date, data) }">
                             <div class="solar" >{{ data.day.split('-')[2] }}</div>
                             <div class="lunar" :class="{ festival : isFestival(date, data) }">
                                 {{ solarToLunar(date, data) }}
@@ -138,43 +137,43 @@ function solarToLunar(slotDate, slotData) {
 <style scoped>
 /**日期div的样式*/
 .el-calendar-table tr td:first-child {
-    border-left: 0px;
+    border-left: 0;
 }
 .el-calendar-table td {
-    min-height: 110px;
-    min-width: 110px;
-    border-right: 0px;
+    min-height: 10rem;
+    min-width: 10rem;
+    border-right: 0;
 }
 .el-calendar-table td.is-selected {
     background-color: white;
 }
 .el-calendar-table .el-calendar-day {
     height: 100%;
-    padding: 0px;
+    padding: 0;
     text-align: center;
 }
 .el-calendar-table .el-calendar-day > div {
-    height: 67px;
-    text-align: center
+    height: 4.3rem;
+    text-align: center;
 }
 /**日期div的样式-公历*/
 .el-calendar-table .el-calendar-day > div .solar {
-    font-size: 21px;
-    padding-top: 10px;
+    font-size: 1.3rem;
+    padding-top: 0.5rem;
     text-align: center
 }
 /**日期div的样式-农历*/
 .el-calendar-table .el-calendar-day > div .lunar {
-    padding-top: 10px;
-    font-size: 15px;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
     text-align: center
 }
 /**日期div的样式-选中*/
 .el-calendar-table .el-calendar-day > div.selected {
     background-color: #fef2f2;
-    border: 3px solid #0bda28;
-    border-radius: 10px;
-    text-align: center
+    border: 2px solid #0bda28;
+    border-radius: 0.5rem;
+    text-align: center;
 }
 /**周末设置为红色*/
 .el-calendar-table .current:nth-last-child(1) .solar {
