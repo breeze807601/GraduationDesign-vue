@@ -48,6 +48,9 @@
                 <el-table-column label="本次用电量" header-align="center">
                     <template #default="scope">{{ scope.row.reading - scope.row.previousReading }}   度</template>
                 </el-table-column>
+                <el-table-column label="剩余电量" header-align="center">
+                    <template #default="scope">{{ scope.row.availableLimit }}   度</template>
+                </el-table-column>
                 <el-table-column width="220px" label="门牌" header-align="center">
                     <template #default="scope">
                         <el-row style="width: 100%; display: flex; justify-content: center; align-items: center;">

@@ -66,10 +66,11 @@
                 </el-table-column>
                 <el-table-column label="账单状态" header-align="center">
                     <template #default="scope">
-                        <el-tag v-if="scope.row.status=='待支付'" size="large">{{ scope.row.status }}</el-tag>
-                        <el-tag v-if="scope.row.status=='已支付'" size="large" type="success">{{ scope.row.status }}</el-tag>
-                        <el-tag v-if="scope.row.status=='已退款'" size="large" type="warning">{{ scope.row.status }}</el-tag>
-                        <el-tag v-if="scope.row.status=='余额不足'" size="large" type="danger">{{ scope.row.status }}</el-tag>
+                        <el-tag v-if="scope.row.status==='待支付'" size="large">{{ scope.row.status }}</el-tag>
+                        <el-tag v-else-if="scope.row.status==='已支付'" size="large" type="success">{{ scope.row.status }}</el-tag>
+                        <el-tag v-else-if="scope.row.status==='已退款'" size="large" type="warning">{{ scope.row.status }}</el-tag>
+                        <el-tag v-else-if="scope.row.status==='余额不足'" size="large" type="danger">{{ scope.row.status }}</el-tag>
+                        <el-tag v-else size="large" type="danger">{{ scope.row.status }}</el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column width="220px" label="门牌" header-align="center">
