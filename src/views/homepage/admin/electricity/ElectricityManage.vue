@@ -46,7 +46,7 @@
                     <template #default="scope">{{ scope.row.reading }}   度</template>
                 </el-table-column>
                 <el-table-column label="本次用电量" header-align="center">
-                    <template #default="scope">{{ scope.row.reading - scope.row.previousReading }}   度</template>
+                    <template #default="scope">{{ (scope.row.reading - scope.row.previousReading).toFixed(1) }}   度</template>
                 </el-table-column>
                 <el-table-column label="剩余电量" header-align="center">
                     <template #default="scope">{{ scope.row.availableLimit }}   度</template>

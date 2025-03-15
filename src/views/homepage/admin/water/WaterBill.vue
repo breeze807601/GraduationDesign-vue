@@ -9,16 +9,12 @@
                     <el-form-item label="住宅">
                         <el-cascader :options="buildingOption" :props="myProps" v-model="option" clearable style="width: 220px;" />
                     </el-form-item>
-                    <el-form-item label="日期" prop="phone" >
-                        <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="month" placeholder="选择月份" :disabled-date="disabledDate">
-                            <template #default="cell">
-                                <div class="el-date-table-cell" :class="{ current: cell.isCurrent }">
-                                    <span class="el-date-table-cell__text">{{ cell.text + 1 }}月</span>
-                                </div>
-                            </template>
-                        </el-date-picker>
+                    <el-form-item label="日期">
+                        <el-config-provider :locale="zhCn">
+                            <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="date" placeholder="选择日期" :disabled-date="disabledDate" />
+                        </el-config-provider>
                     </el-form-item>
-                    <el-form-item label="状态" prop="phone">
+                    <el-form-item label="状态">
                         <el-select v-model="form.status" placeholder="请选择状态" style="width: 220px;">
                             <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value" />
                         </el-select>
@@ -141,7 +137,7 @@ async function handleQuery() {
         form.value.floor = option.value[1];
         form.value.doorplate = option.value[2];
     }
-    getBillList();
+    await getBillList();
 }
 // 重置
 function resetQuery() {
@@ -149,8 +145,8 @@ function resetQuery() {
     form.value.buildingNum = null;
     form.value.floor = null;
     form.value.doorplate = null;
-    form.value.name = '',
-    form.value.status = '',
+    form.value.name = '';
+    form.value.status = '';
     form.value.pageNo = 1;
     form.value.pageSize = 14;
     form.value.total = 0;
@@ -171,22 +167,18 @@ async function getOption() {
 }
 // 状态选择器相关
 const statusOptions = [
-  {
-    value: 0,
-    label: '待支付',
-  },
-  {
-    value: 1,
-    label: '已支付',
-  },
-  {
-    value: 2,
-    label: '已退款',
-  },
-  {
-    value: 3,
-    label: '余额不足',
-  }
+    {
+        value: 1,
+        label: '已支付',
+    },
+    {
+        value: 2,
+        label: '余额不足',
+    },
+    {
+        value: 3,
+        label: '已退款',
+    },
 ]
 
 // 加载

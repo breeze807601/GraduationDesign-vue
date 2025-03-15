@@ -46,7 +46,7 @@
                     <template #default="scope">{{ scope.row.reading }}   方</template>
                 </el-table-column>
                 <el-table-column label="本次用水量" header-align="center">
-                    <template #default="scope">{{ scope.row.reading - scope.row.previousReading }}   方</template>
+                    <template #default="scope">{{ (scope.row.reading - scope.row.previousReading).toFixed(1) }}   方</template>
                 </el-table-column>
                 <el-table-column label="剩余水量" header-align="center">
                     <template #default="scope">{{ scope.row.availableLimit }}   方</template>
@@ -165,7 +165,7 @@ async function handleQuery() {
         form.value.floor = option.value[1];
         form.value.doorplate = option.value[2];
     }
-    getMeterList();
+    await getMeterList();
 }
 // 重置
 function resetQuery() {
