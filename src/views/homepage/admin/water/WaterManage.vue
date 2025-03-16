@@ -7,13 +7,9 @@
                         <el-cascader :options="buildingOption" :props="myProps" v-model="option" clearable />
                     </el-form-item>
                     <el-form-item label="日期">
-                        <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="month" placeholder="选择月份" :disabled-date="disabledDate">
-                            <template #default="cell">
-                                <div class="el-date-table-cell" :class="{ current: cell.isCurrent }" >
-                                    <span class="el-date-table-cell__text">{{ cell.text + 1 }}月</span>
-                                </div>
-                            </template>
-                        </el-date-picker>
+                        <el-config-provider :locale="zhCn">
+                            <el-date-picker v-model="form.time" value-format="YYYY-MM-DD" type="date" placeholder="选择日期" :disabled-date="disabledDate" />
+                        </el-config-provider>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" :icon="Search" @click="handleQuery">搜索</el-button>
@@ -77,7 +73,7 @@
                             <template #actions="{ confirm, cancel }">
                                 <div style="text-align: center;margin-bottom: 10px;">修改本次读数</div>
                                 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                                    <el-input-number v-model="reading" :min="0" :max="500" :step="1" >
+                                    <el-input-number v-model="reading" :min="0" :step="1" >
                                         <template #suffix>
                                             <span>方</span>
                                         </template>
