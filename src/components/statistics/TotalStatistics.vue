@@ -91,7 +91,7 @@ const aggregateOption = {
 
 async function getMonthlyUsage() {  // 获取统计表数据
     loading.value = true;
-    if (aggregateChart != null && aggregateChart != "" && aggregateChart != undefined) {
+    if (aggregateChart != null && aggregateChart !== "" && aggregateChart !== undefined) {
         //销毁
         aggregateChart.dispose();
     }

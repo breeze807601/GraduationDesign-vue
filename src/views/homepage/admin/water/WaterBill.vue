@@ -26,14 +26,11 @@
                 </el-form>
             </el-col>
             <el-col :span="24">
-                <el-tooltip content="导出上月用水账单" effect="light">
-                    <el-button type="success" :icon="Download" auto-insert-space plain @click="download">导出</el-button>
+                <el-tooltip content="导出用水账单" effect="light">
+                    <el-button type="success" :icon="Download" auto-insert-space plain @click="dialog = true">导出</el-button>
                 </el-tooltip>
-                <el-tooltip content="通知提醒待支付住户" effect="light">
-                    <el-button type="success" :icon="Bell" :loading="loadingButton2" @click="notifyPayment">通知住户缴费</el-button>
-                </el-tooltip>
-                <el-tooltip content="通知提醒余额不足住户" effect="light">
-                    <el-button type="danger" :icon="Bell" :loading="loadingButton1" @click="noticeOfInsufficientBalance">提醒余额不足住户</el-button>
+                <el-tooltip content="通知住户充值" effect="light">
+                    <el-button type="success" :icon="Bell" :loading="loadingButton" @click="notifyRecharge">通知</el-button>
                 </el-tooltip>
             </el-col>
         </el-row>
@@ -94,6 +91,16 @@
             </div>
         </div>
     </div>
+    <el-dialog v-model="dialog" title="导出账单" width="400" destroy-on-close center>
+        <el-config-provider :locale="zhCn">
+            <el-date-picker v-model="timeInfo" type="daterange" placeholder="选择日期" format="YYYY-MM-DD" value-format="YYYY-MM-DD"
+                            date-format="YYYY-MM-DD" :disabled-date="disabledDate" start-placeholder="起始日期" end-placeholder="终点日期"/>
+        </el-config-provider>
+        <template #footer>
+            <el-button @click="timeInfo = null;dialog = false">取 消</el-button>
+            <el-button type="primary" @click="download">确 定</el-button>
+        </template>
+    </el-dialog>
 </template>
 
 <script setup>
@@ -175,10 +182,6 @@ const statusOptions = [
         value: 2,
         label: '余额不足',
     },
-    {
-        value: 3,
-        label: '已退款',
-    },
 ]
 
 // 加载
@@ -201,40 +204,44 @@ async function handleCurrentChange(val) {
     await getBillList(); 
 }
 // 导出
+const dialog = ref(false)
+const timeInfo = ref()
 async function download() {
+    if (timeInfo.value == null) {
+        ElMessage.error('请选择导出时间')
+        return;
+    }
+    const exportForm = ref({
+        startTime: timeInfo.value[0],
+        endTime: timeInfo.value[1],
+    })
     await request.get('/waterBill/export', {
+        params: exportForm.value,
         responseType: 'blob', // 重要，确保返回的是文件流
         isDownload: true // 添加自定义标识符
     }).then(res => {
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', '上月用水账单.xlsx'); // 设置下载文件名
+        link.setAttribute('download', '用水账单.xlsx'); // 设置下载文件名
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link); // 下载完成后移除链接
         ElMessage.success('导出成功')
+        dialog.value = false
     }).catch(err => {
         ElMessage.error('导出失败，请稍后再试');
     });
 }
 // 通知余额不足住户
-const loadingButton1 = ref(false)
-const loadingButton2 = ref(false)
-async function noticeOfInsufficientBalance() {
-    loadingButton1.value = true
-    await request.post("/waterBill/noticeOfInsufficientBalance").then(res => {
+const loadingButton = ref(false)
+// 通知住户充值
+async function notifyRecharge() {
+    loadingButton.value = true
+    await request.post("/waterBill/notifyRecharge").then(res => {
         ElMessage.success(res.data)
     })
-    loadingButton1.value = false
-}
-// 通知待支付住户
-async function notifyPayment() {
-    loadingButton2.value = true
-    await request.post("/waterBill/notifyPayment").then(res => {
-        ElMessage.success(res.data)
-    })
-    loadingButton2.value = false
+    loadingButton.value = false
 }
 </script>
 
