@@ -47,7 +47,7 @@
                             <svg style="margin-right: 2rem" t="1741595756269" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6456" width="36" height="36"><path d="M771.3 465.8L256 1024l150.1-450.3c1.7-5.2-2.1-10.5-7.6-10.5H253c-46.5 0-77.5-48.1-58.3-90.5L392.5 37.5C402.9 14.7 425.7 0 450.8 0h419.6L672.5 346.4c-3 5.3 0.8 12 6.9 12h44.8c55.8 0 84.9 66.4 47.1 107.4z" p-id="6457" fill="#f4ea2a"></path></svg>
                             <el-row>
                                 <el-col :span="24" style="margin-bottom: 5px">
-                                    <span class="label">上月用电量(度)</span>
+                                    <span class="label">本月用电量(度)</span>
                                 </el-col>
                                 <el-col :span="24">
                                     <el-statistic :value="electricityNumOutputValue" />
@@ -60,7 +60,7 @@
                             <svg style="margin-right: 2rem" t="1741595821340" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7916" width="36" height="36"><path d="M486.2 102.6s11-11.2 27.5 3c25.3 21.8 211.6 197.8 289.2 331.1 57.9 99.4 61.9 218.5 22.6 302.4-42.5 90.7-91 129-135.7 150.2-49.4 23.4-83.4 37.3-212.4 38.9-13.6 0.2-17.7-797.5-17.7-797.5l26.5-28.1z" fill="#2280BF" p-id="7917"></path><path d="M486.2 928.3c-174.8 0-316.5-142.8-316.5-319 0-117.5 105.5-286.4 316.5-506.7 211 220.3 316.5 389.2 316.5 506.7 0.1 176.1-141.7 319-316.5 319zM254.3 653.4c21.2 89 85.8 161.3 171.8 192.5 7 2.5 14.7 2.1 21.4-1.1 6.7-3.2 11.8-8.9 14.3-16 5.2-14.6-2.4-30.7-16.9-36-68.2-24.7-119.4-82.1-136.2-152.6-2.4-9.7-9.7-17.4-19.3-20.2-9.6-2.8-19.9-0.3-27.2 6.6-7.3 6.9-10.3 17.1-7.9 26.8z m0 0" fill="#4EB3FF" p-id="7918"></path></svg>
                             <el-row>
                                 <el-col :span="24" style="margin-bottom: 5px">
-                                        <span class="label">上月用水量(方)</span>
+                                        <span class="label">本月用水量(方)</span>
                                 </el-col>
                                 <el-col :span="24">
                                     <el-statistic :value="waterNumOutputValue" />

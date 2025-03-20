@@ -54,7 +54,7 @@
                 </el-aside>
                 <el-container>
                     <el-header class="header-centered">
-                        <span style="font-size: 16px;margin-right: 6px;">{{ userInfo.username }}</span>
+                        <span style="font-size: 16px;margin-right: 6px;">{{ userInfo.username }} </span>
                         <el-dropdown>
                             <span class="el-dropdown-link">
                                 <el-icon><ArrowDownBold /></el-icon>
@@ -140,6 +140,7 @@ async function getUserInfo() {
         userInfo.phone = res.data.phone;
         userInfo.id = res.data.id;
         userInfo.power = res.data.power
+        console.log(userInfo)
     })
 }
 // 修改密码

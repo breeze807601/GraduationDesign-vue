@@ -30,7 +30,7 @@
                     <el-button type="success" :icon="Download" auto-insert-space plain @click="dialog = true">导出</el-button>
                 </el-tooltip>
                 <el-tooltip content="通知住户充值" effect="light">
-                    <el-button type="success" :icon="Bell" :loading="loadingButton" @click="notifyPayment">通知</el-button>
+                    <el-button type="success" :icon="Bell" :loading="loadingButton" @click="notifyRecharge">通知</el-button>
                 </el-tooltip>
             </el-col>
         </el-row>
@@ -234,10 +234,9 @@ async function download() {
         ElMessage.error('导出失败，请稍后再试');
     });
 }
-// 通知余额不足住户
+// 通知住户充值
 const loadingButton = ref(false)
-// 通知待支付住户
-async function notifyPayment() {
+async function notifyRecharge() {
     loadingButton.value = true
     await request.post("/electricityBill/notifyRecharge").then(res => {
         ElMessage.success(res.data)

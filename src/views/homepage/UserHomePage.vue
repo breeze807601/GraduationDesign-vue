@@ -46,7 +46,7 @@
             </el-aside>
             <el-container>
                 <el-header class="header-centered">
-                    <span style="font-size: 16px;margin-right: 6px;">欢迎您使用本系统，{{ userInfo.name }}</span>
+                    <span style="font-size: 16px;margin-right: 6px;"> {{ userInfo.name }} </span>
                     <el-dropdown>
                         <span class="el-dropdown-link">
                             <el-icon><ArrowDownBold /></el-icon>

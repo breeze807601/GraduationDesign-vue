@@ -233,9 +233,8 @@ async function download() {
         ElMessage.error('导出失败，请稍后再试');
     });
 }
-// 通知余额不足住户
-const loadingButton = ref(false)
 // 通知住户充值
+const loadingButton = ref(false)
 async function notifyRecharge() {
     loadingButton.value = true
     await request.post("/waterBill/notifyRecharge").then(res => {

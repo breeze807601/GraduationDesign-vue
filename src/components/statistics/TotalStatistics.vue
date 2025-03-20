@@ -1,5 +1,5 @@
 <template>
-    <el-card style="width: 42rem;" v-loading="loading">
+    <el-card style="width: 52rem;" v-loading="loading">
         <div style="margin-bottom: 1rem;text-align: center;">
             <el-date-picker v-model="date" value-format="YYYY-MM-DD" type="monthrange" range-separator="至" start-placeholder="起始月" end-placeholder="终点月" :disabledDate="disabledDate">
                 <template #default="cell">
@@ -14,7 +14,7 @@
                 <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
             </el-tooltip>
         </div>
-        <div id="aggregateOption" style="width: 40rem;height: 22rem;" />
+        <div id="aggregateOption" style="width: 50rem;height: 22rem;" />
     </el-card>
 </template>
 
@@ -53,7 +53,6 @@ const aggregateOption = {
     //横轴
     xAxis: {
         type: 'category',
-        // boundaryGap: false,
         data: [],
         name: '日期'
     },
@@ -96,7 +95,7 @@ async function getMonthlyUsage() {  // 获取统计表数据
         aggregateChart.dispose();
     }
     aggregateChart = echarts.init(document.getElementById('aggregateOption'));
-    await request.get('/electricityBill/getMonthlyUsage',{
+    await request.get('/electricityBill/electricityStatistics',{
         params: {
             start: start.value, // 起始日期
             end: end.value      // 结束日期
@@ -107,7 +106,7 @@ async function getMonthlyUsage() {  // 获取统计表数据
         aggregateOption.series[0].data = res.data.num;
         aggregateOption.series[2].data = res.data.avgNum;
     })
-    await request.get('/waterBill/getMonthlyUsage',{
+    await request.get('/waterBill/waterStatistics',{
         params: {
             start: start.value, // 起始日期
             end: end.value      // 结束日期

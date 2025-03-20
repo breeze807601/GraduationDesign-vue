@@ -1,5 +1,5 @@
 <template>
-    <el-card style="width: 42rem;" v-loading="loading">
+    <el-card style="width: 52rem;" v-loading="loading">
         <div style="margin-bottom: 1rem;text-align: center;">
             <el-date-picker v-model="date" value-format="YYYY-MM-DD" type="monthrange" range-separator="至" start-placeholder="起始月" end-placeholder="终点月" :disabledDate="disabledDate">
                 <template #default="cell">
@@ -14,7 +14,7 @@
                 <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
             </el-tooltip>
         </div>
-        <div id="costOption" style="width: 40rem;height: 22rem;" />
+        <div id="costOption" style="width: 50rem;height: 22rem;" />
     </el-card>
 </template>
 
@@ -91,7 +91,7 @@ onMounted(async () => {
 var costChart;
 async function getCostStatistics() {
     loading.value = true;
-    if (costChart != null && costChart != "" && costChart != undefined) {
+    if (costChart != null && costChart !== "" && costChart !== undefined) {
         //销毁
         costChart.dispose();
     }
