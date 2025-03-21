@@ -96,7 +96,7 @@ import request from "@/request/request"
 import {Search,Refresh,Plus,EditPen,Delete,Download,Management,UserFilled} from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import BuildingManage from "../../../components/BuildingManage.vue";
+import BuildingManage from "../../../components/building/BuildingManage.vue";
 import AdminManage from "@/components/AdminManage.vue";
 
 document.title = "用户管理";

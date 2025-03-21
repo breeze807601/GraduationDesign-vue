@@ -92,7 +92,7 @@
                         </el-button>
                     </el-form-item>
                     <el-form-item prop="newPhone">
-                        <el-input style="width: 300px" :disabled="!phoneInfo.code" v-model="phoneInfo.newPhone" placeholder="请输入新手机" :prefix-icon="Phone" show-password />
+                        <el-input style="width: 300px" :disabled="!phoneInfo.code" v-model="phoneInfo.newPhone" placeholder="请输入新手机" :prefix-icon="Phone" />
                     </el-form-item>
                 </el-form>
             </div>
@@ -232,7 +232,7 @@ function phoneCheckForm() {
 }
 async function updatePhone() {
     phoneInfo.id = userInfo.id;
-    await request.put('/admin/updatePhone', phoneInfo).then(res => {
+    await request.put('/user/updatePhone', phoneInfo).then(res => {
         ElMessage.success(res.data)
         phoneDialogClose();
     })
@@ -240,7 +240,7 @@ async function updatePhone() {
   
 // 获取code和倒计时相关
 async function sendCode() {
-    await request.get('/admin/getCode',{params: {phone: userInfo.phone}}).then(res => {
+    await request.get('/user/getCode',{params: {phone: userInfo.phone}}).then(res => {
         ElMessage.success(res.data);
         // 启动倒计时
         startCountdown();

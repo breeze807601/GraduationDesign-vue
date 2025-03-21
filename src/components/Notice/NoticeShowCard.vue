@@ -46,7 +46,7 @@ import {onMounted, reactive, ref} from "vue";
 import router from "@/router";
 import request from "@/request/request";
 import {Delete, EditPen} from "@element-plus/icons-vue";
-import NoticeDetails from "@/components/NoticeDetails.vue";
+import NoticeDetails from "@/components/Notice/NoticeDetails.vue";
 
 document.title = "首页";
 document.body.style.overflow = 'hidden';

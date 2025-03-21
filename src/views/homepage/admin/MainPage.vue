@@ -82,7 +82,7 @@
 import {onMounted, reactive, ref} from "vue";
 import request from "@/request/request";
 
-import NoticeShowCard from "@/components/NoticeShowCard.vue";
+import NoticeShowCard from "@/components/Notice/NoticeShowCard.vue";
 import Calender from '@/components/CalendarComponent.vue'
 import {TransitionPresets, useTransition} from '@vueuse/core'
 import router from "@/router";

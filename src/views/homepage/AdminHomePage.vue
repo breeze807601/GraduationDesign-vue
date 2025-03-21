@@ -100,7 +100,7 @@
                             </el-button>
                         </el-form-item>
                         <el-form-item prop="newPhone">
-                            <el-input style="width: 300px" :disabled="!phoneInfo.code" v-model="phoneInfo.newPhone" placeholder="请输入新手机" :prefix-icon="Phone" show-password />
+                            <el-input style="width: 300px" :disabled="!phoneInfo.code" v-model="phoneInfo.newPhone" placeholder="请输入新手机" :prefix-icon="Phone" />
                         </el-form-item>
                     </el-form>
                 </div>

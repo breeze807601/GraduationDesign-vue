@@ -81,8 +81,8 @@ import {ref, reactive, onMounted} from "vue";
 import { Refresh, Search, Plus, EditPen, Delete } from "@element-plus/icons-vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import NoticeAddOrMod from "@/components/NoticeAddOrMod.vue";
-import NoticeDetails from "@/components/NoticeDetails.vue";
+import NoticeAddOrMod from "@/components/Notice/NoticeAddOrMod.vue";
+import NoticeDetails from "@/components/Notice/NoticeDetails.vue";
 
 document.title = "公告";
 document.body.style.overflow = 'hidden';
