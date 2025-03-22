@@ -1,5 +1,5 @@
 <template>
-    <el-card style="width: 52rem;" v-loading="loading">
+    <el-card style="width: 42rem;" v-loading="loading">
         <div style="margin-bottom: 1rem;text-align: center;">
             <el-date-picker v-model="date" value-format="YYYY-MM-DD" type="monthrange" range-separator="至" start-placeholder="起始月" end-placeholder="终点月" :disabledDate="disabledDate">
                 <template #default="cell">
@@ -14,41 +14,39 @@
                 <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
             </el-tooltip>
         </div>
-        <div id="costOption" style="width: 50rem;height: 22rem;" />
+        <div id="waterCostOption" style="width: 40rem;height: 22rem;" />
     </el-card>
 </template>
 
 <script setup>
 import * as echarts from 'echarts';
 import request from "@/request/request"
-import { reactive, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import {Search,RefreshLeft,Help} from '@element-plus/icons-vue';
 
+let waterCostChart;
 // 加载
 const loading = ref(false);
 
-const costOption = {
+const waterCostOption = {
     title: {
-        text: '费用情况'
+        text: '用水费用情况'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['用电总费用','用水总费用','平均电费','平均水费'],
+        data: ['用水总费用','平均水费'],
         right: 10,
         selected: {
-            '用电总费用': true,
             '用水总费用': true,
-            '平均电费': false,
             '平均水费': false,
         }
     },
     //横轴
     xAxis: {
         type: 'category',
-        // boundaryGap: false,
         data: [],
         name: '日期'
     },
@@ -58,28 +56,22 @@ const costOption = {
     },
     series: [
         {
-            name: '用电总费用',
-            type: 'bar',
-            data: [],//纵轴
-            smooth:true
-        },
-        {
             name: '用水总费用',
             type: 'bar',
             data: [],//纵轴
-            smooth:true
-        },
-        {
-            name: '平均电费',
-            type: 'line',
-            data: [],//纵轴
-            smooth:true
+            smooth:true,
+            itemStyle: {
+                color: '#87CEEB'
+            }
         },
         {
             name: '平均水费',
             type: 'line',
             data: [],//纵轴
-            smooth:true
+            smooth:true,
+            itemStyle: {
+                color: '#7CC57C'
+            }
         },
     ]
 };
@@ -87,26 +79,13 @@ const costOption = {
 onMounted(async () => {
     await getCostStatistics();
 });
-
-var costChart;
 async function getCostStatistics() {
     loading.value = true;
-    if (costChart != null && costChart !== "" && costChart !== undefined) {
+    if (waterCostChart != null && waterCostChart !== "" && waterCostChart !== undefined) {
         //销毁
-        costChart.dispose();
+        waterCostChart.dispose();
     }
-    costChart = echarts.init(document.getElementById('costOption'));
-    await request.get('/electricityBill/getCostStatistics',{
-        params: {
-            start: start.value, // 起始日期
-            end: end.value      // 结束日期
-        }
-    }).then(res =>{
-        //横轴数据和纵抽数据
-        costOption.xAxis.data = res.data.date;
-        costOption.series[0].data = res.data.num;
-        costOption.series[2].data = res.data.avgNum;
-    })
+    waterCostChart = echarts.init(document.getElementById('waterCostOption'));
     await request.get('/waterBill/getCostStatistics',{
         params: {
             start: start.value, // 起始日期
@@ -114,18 +93,19 @@ async function getCostStatistics() {
         }
     }).then(res =>{
         //横轴数据和纵抽数据
-        costOption.series[1].data = res.data.num;
-        costOption.series[3].data = res.data.avgNum;
+        waterCostOption.xAxis.data = res.data.date;
+        waterCostOption.series[0].data = res.data.num;
+        waterCostOption.series[1].data = res.data.avgNum;
     })
     loading.value = false;
-    costChart.setOption(costOption);
+    waterCostChart.setOption(waterCostOption);
 }
 
 // 禁用未来时间的逻辑
 const disabledDate = (time) => {
-  const now = new Date(); // 当前日期
-  now.setHours(0, 0, 0, 0); // 清除小时、分钟、秒和毫秒，确保只比较日期
-  return time.getTime() > now.getTime(); // 如果时间大于当前时间，则禁用
+    const now = new Date(); // 当前日期
+    now.setHours(0, 0, 0, 0); // 清除小时、分钟、秒和毫秒，确保只比较日期
+    return time.getTime() > now.getTime(); // 如果时间大于当前时间，则禁用
 };
 
 // 搜索相关
@@ -152,11 +132,9 @@ async function resetQuery() {
 const isSelected = ref(true)   // 是否显示总量
 function change() {
     isSelected.value = !isSelected.value;
-    costOption.legend.selected.用电总费用 = isSelected.value;
-    costOption.legend.selected.用水总费用 = isSelected.value;
-    costOption.legend.selected.平均电费 = !isSelected.value;
-    costOption.legend.selected.平均水费 = !isSelected.value;
-    costChart.setOption(costOption);
+    waterCostOption.legend.selected.用水总费用 = isSelected.value;
+    waterCostOption.legend.selected.平均水费 = !isSelected.value;
+    waterCostChart.setOption(waterCostOption);
 }
 </script>
 
