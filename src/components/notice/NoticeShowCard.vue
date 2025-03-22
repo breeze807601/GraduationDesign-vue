@@ -3,14 +3,14 @@
         <el-card>
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-size: 1rem;color: black">公告</span>
-                <el-button type="primary" link size="large" style="font-size: 1rem" @click="router.push('/noticeManage')">
+                <el-button type="primary" link size="large" style="font-size: 1rem" @click="isUser? router.push('/uNotice') : router.push('/noticeManage')">
                     更多<el-icon class="el-icon--right"><DArrowRight /></el-icon>
                 </el-button>
             </div>
             <el-divider>
                 <el-icon><star-filled /></el-icon>
             </el-divider>
-            <el-table :data="noticeList" style="width: 100%;height: 12.5rem;margin-bottom: 5px" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }"
+            <el-table :data="noticeList" style="width: 100%;height: 12.7rem;margin-bottom: 5px" stripe v-loading="loading" :cell-style="{ textAlign: 'center' }"
                       table-layout="fixed" >
                 <el-table-column label="标题" header-align="center">
                     <template #default="scope">{{ scope.row.title }}</template>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref, defineProps} from "vue";
 import router from "@/router";
 import request from "@/request/request";
 import {Delete, EditPen} from "@element-plus/icons-vue";
@@ -50,6 +50,10 @@ import NoticeDetails from "@/components/notice/NoticeDetails.vue";
 
 document.title = "首页";
 document.body.style.overflow = 'hidden';
+
+const props = defineProps({
+    isUser: Boolean,
+})
 
 onMounted(() => {
     getNotice();
@@ -71,7 +75,6 @@ async function getNotice() {
         loading.value = false;
     })
 }
-
 // 详情
 const detailsDialogVisible = ref(false)
 const noticeDetailId = ref('')

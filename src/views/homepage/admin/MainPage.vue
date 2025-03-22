@@ -70,7 +70,7 @@
                     </el-card>
                 </div>
             </el-card>
-            <notice-show-card style="width: 100%;"/>
+            <notice-show-card style="width: 100%;" :isUser="false"/>
         </div>
         <div style="width: 4%"></div>
         <calender style="flex: 1;" />
@@ -164,13 +164,11 @@ function openBuildingManage() {
     display: flex;
     width: 100%;
 }
-
 .item {
     display: flex;
     justify-content: center;
     width: 40%;
 }
-
 .item > notice-show-card {
     width: 80%;
 }
@@ -178,13 +176,10 @@ function openBuildingManage() {
 calender {
     flex: 1;
 }
-
-
 .charging-station-content {
     display: flex;
     align-items: center;
 }
-
 .charging-station .count {
     font-size: 24px;
     font-weight: bold;

@@ -60,6 +60,10 @@ const routes = [
             {
                 path: '/uStatistics',
                 component: () => import('@/views/homepage/user/UStatistics.vue')
+            },
+            {
+                path: '/uNotice',
+                component: () => import('@/views/homepage/user/UNotice.vue')
             }
         ]
     },
