@@ -90,7 +90,8 @@ async function getMonthlyUsage() {  // 获取统计表数据
     await request.get('/waterBill/waterStatistics',{
         params: {
             start: start.value, // 起始日期
-            end: end.value      // 结束日期
+            end: end.value,      // 结束日期
+            isUser: false
         }
     }).then(res =>{
         //横轴数据和纵抽数据

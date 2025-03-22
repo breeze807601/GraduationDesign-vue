@@ -128,7 +128,6 @@ const electricityNumOutputValue = useTransition(electricityNum, {
 async function electricityCounting() {
     await request.get('/electricityBill/count').then(res => {
         electricityNum.value = parseInt(res.data);
-        console.log("electricityNum.value",res.data)
     })
 }
 // 用水量
@@ -140,7 +139,6 @@ const waterNumOutputValue = useTransition(waterNum, {
 async function waterCounting() {
     await request.get('/waterBill/count').then(res => {
         waterNum.value = parseInt(res.data);
-        console.log("waterNum.value",res.data)
     })
 }
 

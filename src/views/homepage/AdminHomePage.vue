@@ -140,7 +140,6 @@ async function getUserInfo() {
         userInfo.phone = res.data.phone;
         userInfo.id = res.data.id;
         userInfo.power = res.data.power
-        console.log(userInfo)
     })
 }
 // 修改密码

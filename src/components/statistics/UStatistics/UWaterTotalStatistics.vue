@@ -10,11 +10,8 @@
             </el-date-picker>
             <el-button style="margin-left: 10px;" type="primary" :icon="Search" @click="query">查看</el-button>
             <el-button style="margin-left: 10px;" :icon="RefreshLeft" @click="resetQuery">重置</el-button>
-            <el-tooltip content="切换查看平均数据或总量数据" effect="light" placement="top">
-                <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
-            </el-tooltip>
         </div>
-        <div id="electricityCostOption" style="width: 40rem;height: 22rem;" />
+        <div id="uWaterAggregateOption" style="width: 40rem;height: 22rem;" />
     </el-card>
 </template>
 
@@ -25,26 +22,29 @@ import { onMounted, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import {Search,RefreshLeft,Help} from '@element-plus/icons-vue';
 
-let electricityCostChart;
+onMounted(async () => {
+    await getMonthlyUsage();
+});
+
 // 加载
 const loading = ref(false);
 
-const electricityCostOption = {
+let uWaterAggregateChart;
+const uWaterAggregateOption = {
     title: {
-        text: '用电费用情况'
+        text: '生活用水使用情况'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['用电总费用','平均电费'],
+        data: ['总用水量','平均用水'],
         right: 10,
         selected: {
-            '用电总费用': true,
-            '平均电费': false,
+            '总用水量': true,
+            '平均用水': false,
         }
     },
-    //横轴
     xAxis: {
         type: 'category',
         data: [],
@@ -52,60 +52,48 @@ const electricityCostOption = {
     },
     yAxis: {
         type: 'value',
-        name: '元'
+        name: '(度/方)'
     },
     series: [
         {
-            name: '用电总费用',
+            name: '总用水量',
             type: 'bar',
             data: [],//纵轴
             smooth:true,
             itemStyle: {
-                color: '#d3d303'
-            }
-        },
-        {
-            name: '平均电费',
-            type: 'line',
-            data: [],//纵轴
-            smooth:true,
-            itemStyle: {
-                color: '#7CC57C'
+                color: '#87CEEB'
             }
         },
     ]
 };
 
-onMounted(async () => {
-    await getCostStatistics();
-});
-async function getCostStatistics() {
+async function getMonthlyUsage() {  // 获取统计表数据
     loading.value = true;
-    if (electricityCostChart != null && electricityCostChart !== "" && electricityCostChart !== undefined) {
+    if (uWaterAggregateChart != null && uWaterAggregateChart !== "" && uWaterAggregateChart !== undefined) {
         //销毁
-        electricityCostChart.dispose();
+        uWaterAggregateChart.dispose();
     }
-    electricityCostChart = echarts.init(document.getElementById('electricityCostOption'));
-    await request.get('/electricityBill/getCostStatistics',{
+    uWaterAggregateChart = echarts.init(document.getElementById('uWaterAggregateOption'));
+    await request.get('/waterBill/waterStatistics',{
         params: {
             start: start.value, // 起始日期
-            end: end.value      // 结束日期
+            end: end.value,      // 结束日期
+            isUser: true
         }
     }).then(res =>{
         //横轴数据和纵抽数据
-        electricityCostOption.xAxis.data = res.data.date;
-        electricityCostOption.series[0].data = res.data.num;
-        electricityCostOption.series[1].data = res.data.avgNum;
+        uWaterAggregateOption.xAxis.data = res.data.date;
+        uWaterAggregateOption.series[0].data = res.data.num;
     })
     loading.value = false;
-    electricityCostChart.setOption(electricityCostOption);
+    uWaterAggregateChart.setOption(uWaterAggregateOption);
 }
 
 // 禁用未来时间的逻辑
 const disabledDate = (time) => {
-  const now = new Date(); // 当前日期
-  now.setHours(0, 0, 0, 0); // 清除小时、分钟、秒和毫秒，确保只比较日期
-  return time.getTime() > now.getTime(); // 如果时间大于当前时间，则禁用
+    const now = new Date(); // 当前日期
+    now.setHours(0, 0, 0, 0); // 清除小时、分钟、秒和毫秒，确保只比较日期
+    return time.getTime() > now.getTime(); // 如果时间大于当前时间，则禁用
 };
 
 // 搜索相关
@@ -119,22 +107,14 @@ async function query() {
     }
     start.value = date.value[0];
     end.value = date.value[1];
-    await getCostStatistics();
+    await getMonthlyUsage();
 }
 // 重置
 async function resetQuery() {
     date.value = '';
     start.value = '';
     end.value = '';
-    await getCostStatistics();
-}
-// 切换相关
-const isSelected = ref(true)   // 是否显示总量
-function change() {
-    isSelected.value = !isSelected.value;
-    electricityCostOption.legend.selected.用电总费用 = isSelected.value;
-    electricityCostOption.legend.selected.平均电费 = !isSelected.value;
-    electricityCostChart.setOption(electricityCostOption);
+    await getMonthlyUsage();
 }
 </script>
 

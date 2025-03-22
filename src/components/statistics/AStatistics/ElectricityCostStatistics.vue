@@ -14,7 +14,7 @@
                 <el-button style="margin-left: 10px;" :icon="Help" @click="change">切换</el-button>
             </el-tooltip>
         </div>
-        <div id="waterCostOption" style="width: 40rem;height: 22rem;" />
+        <div id="electricityCostOption" style="width: 40rem;height: 22rem;" />
     </el-card>
 </template>
 
@@ -25,23 +25,23 @@ import { onMounted, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import {Search,RefreshLeft,Help} from '@element-plus/icons-vue';
 
-let waterCostChart;
+let electricityCostChart;
 // 加载
 const loading = ref(false);
 
-const waterCostOption = {
+const electricityCostOption = {
     title: {
-        text: '用水费用情况'
+        text: '用电费用情况'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['用水总费用','平均水费'],
+        data: ['用电总费用','平均电费'],
         right: 10,
         selected: {
-            '用水总费用': true,
-            '平均水费': false,
+            '用电总费用': true,
+            '平均电费': false,
         }
     },
     //横轴
@@ -56,16 +56,16 @@ const waterCostOption = {
     },
     series: [
         {
-            name: '用水总费用',
+            name: '用电总费用',
             type: 'bar',
             data: [],//纵轴
             smooth:true,
             itemStyle: {
-                color: '#87CEEB'
+                color: '#d3d303'
             }
         },
         {
-            name: '平均水费',
+            name: '平均电费',
             type: 'line',
             data: [],//纵轴
             smooth:true,
@@ -81,31 +81,32 @@ onMounted(async () => {
 });
 async function getCostStatistics() {
     loading.value = true;
-    if (waterCostChart != null && waterCostChart !== "" && waterCostChart !== undefined) {
+    if (electricityCostChart != null && electricityCostChart !== "" && electricityCostChart !== undefined) {
         //销毁
-        waterCostChart.dispose();
+        electricityCostChart.dispose();
     }
-    waterCostChart = echarts.init(document.getElementById('waterCostOption'));
-    await request.get('/waterBill/getCostStatistics',{
+    electricityCostChart = echarts.init(document.getElementById('electricityCostOption'));
+    await request.get('/electricityBill/getCostStatistics',{
         params: {
             start: start.value, // 起始日期
-            end: end.value      // 结束日期
+            end: end.value,      // 结束日期
+            isUser: false
         }
     }).then(res =>{
         //横轴数据和纵抽数据
-        waterCostOption.xAxis.data = res.data.date;
-        waterCostOption.series[0].data = res.data.num;
-        waterCostOption.series[1].data = res.data.avgNum;
+        electricityCostOption.xAxis.data = res.data.date;
+        electricityCostOption.series[0].data = res.data.num;
+        electricityCostOption.series[1].data = res.data.avgNum;
     })
     loading.value = false;
-    waterCostChart.setOption(waterCostOption);
+    electricityCostChart.setOption(electricityCostOption);
 }
 
 // 禁用未来时间的逻辑
 const disabledDate = (time) => {
-    const now = new Date(); // 当前日期
-    now.setHours(0, 0, 0, 0); // 清除小时、分钟、秒和毫秒，确保只比较日期
-    return time.getTime() > now.getTime(); // 如果时间大于当前时间，则禁用
+  const now = new Date(); // 当前日期
+  now.setHours(0, 0, 0, 0); // 清除小时、分钟、秒和毫秒，确保只比较日期
+  return time.getTime() > now.getTime(); // 如果时间大于当前时间，则禁用
 };
 
 // 搜索相关
@@ -132,9 +133,9 @@ async function resetQuery() {
 const isSelected = ref(true)   // 是否显示总量
 function change() {
     isSelected.value = !isSelected.value;
-    waterCostOption.legend.selected.用水总费用 = isSelected.value;
-    waterCostOption.legend.selected.平均水费 = !isSelected.value;
-    waterCostChart.setOption(waterCostOption);
+    electricityCostOption.legend.selected.用电总费用 = isSelected.value;
+    electricityCostOption.legend.selected.平均电费 = !isSelected.value;
+    electricityCostChart.setOption(electricityCostOption);
 }
 </script>
 
