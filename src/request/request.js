@@ -14,24 +14,26 @@ instance.interceptors.response.use(
         //判断业务状态
         if(result.data.code === 1){
             return result.data;
-        } else {
+        } else if (result.data.code === 401) {
+            ElMessage({
+                message: "请先登录!",
+                type: 'error',
+            })
+            router.push("/")
+        } else if (result.data.code === 403) {
+            ElMessage({
+                message: "权限不足!请重新登录!",
+                type: 'error',
+            })
+            router.push("/")
+        }
+        else {
             ElMessage({
                 message: result.data.msg ? result.data.msg : "发生错误！",
                 type: 'error',
             })
         }
         return Promise.reject(result.data)
-    },
-    err=>{
-        // 401 token过期
-        if (err.response.status == 401) {
-            ElMessage({
-                message: "请先登录!",
-                type: 'error',
-            })
-            router.push("/")
-        }
-        return Promise.reject(err);
     }
 )
 

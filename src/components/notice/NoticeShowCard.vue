@@ -48,9 +48,6 @@ import request from "@/request/request";
 import {Delete, EditPen} from "@element-plus/icons-vue";
 import NoticeDetails from "@/components/notice/NoticeDetails.vue";
 
-document.title = "首页";
-document.body.style.overflow = 'hidden';
-
 const props = defineProps({
     isUser: Boolean,
 })
