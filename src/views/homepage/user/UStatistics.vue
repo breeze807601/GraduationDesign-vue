@@ -16,6 +16,9 @@ import UElectricityCostStatistics from "@/components/statistics/UStatistics/UEle
 import UElectricityTotalStatistics from "@/components/statistics/UStatistics/UElectricityTotalStatistics.vue";
 import UWaterCostStatistics from "@/components/statistics/UStatistics/UWaterCostStatistics.vue";
 import UWaterTotalStatistics from "@/components/statistics/UStatistics/UWaterTotalStatistics.vue";
+
+document.title = "幸福小区系统-统计";
+document.body.style.overflow = 'hidden';
 </script>
 
 <style scoped>

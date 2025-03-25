@@ -73,6 +73,9 @@ import {ref, reactive, onMounted} from "vue";
 import request from "@/request/request";
 import {View} from "@element-plus/icons-vue";
 
+document.title = "幸福小区系统-公告";
+document.body.style.overflow = 'hidden';
+
 onMounted(() => {
     getList();
 })

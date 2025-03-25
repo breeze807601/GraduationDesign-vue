@@ -64,6 +64,10 @@ const routes = [
             {
                 path: '/uNotice',
                 component: () => import('@/views/homepage/user/UNotice.vue')
+            },
+            {
+                path: '/personalHomepage',
+                component: () => import('@/views/homepage/user/PersonalHomepage.vue')
             }
         ]
     },
