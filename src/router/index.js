@@ -67,7 +67,18 @@ const routes = [
             },
             {
                 path: '/personalHomepage',
-                component: () => import('@/views/homepage/user/PersonalHomepage.vue')
+                component: () => import('@/views/homepage/user/PersonalHomepage.vue'),
+                redirect: '/balanceRelated',  // 重定向
+                children: [
+                    {
+                        path: '/balanceRelated',
+                        component: () => import('@/components/recharge/BalanceRelated.vue')
+                    },
+                    {
+                        path: '/electricityLimit',
+                        component: () => import('@/components/recharge/ElectricityLimit.vue')
+                    },
+                ]
             }
         ]
     },

@@ -93,6 +93,8 @@ async function login() {
         ElMessage.success(res.data)
         loading.value = false;
         router.push("/uHomepage")
+    }).catch(err => {
+        loading.value = false;
     })
 }
 

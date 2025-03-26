@@ -64,6 +64,7 @@ const rules = {
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
 function checkForm() {
+    loading.value = true;
     ruleRef.value.validate(valid => {
         if (valid) {
             login();
@@ -76,18 +77,16 @@ function checkForm() {
 const loading = ref(false)
 
 async function login() {
-    loading.value = true;
-    try {
-        await request.post('/admin/login', form).then(res => {
-            ElMessage({
-                message: res.msg ? res.msg : "登录成功！",
-                type: 'success',
-            });
-            router.push('/aHomepage')
-        })
-    } finally {
+    await request.post('/admin/login', form).then(res => {
+        ElMessage({
+            message: res.msg ? res.msg : "登录成功！",
+            type: 'success',
+        });
         loading.value = false;
-    }
+        router.push('/aHomepage')
+    }).catch(err => {
+        loading.value = false;
+    })
 }
 
 function toLogin() {
