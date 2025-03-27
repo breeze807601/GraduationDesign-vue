@@ -1,8 +1,8 @@
 <template>
     <div style="width: 400px;">
         <el-row>
-            <el-col :span="15">
-                <el-descriptions direction=""  border>
+            <el-col :span="isAdmin ? 15 : 24">
+                <el-descriptions :direction="isAdmin ? '': 'vertical'"  border>
                     <el-descriptions-item align="center" width="140px" :label="title">{{ tariff.price }} {{ isWater ? '元 / 方' : '元 / 度' }}</el-descriptions-item>
                 </el-descriptions>
             </el-col>

@@ -30,7 +30,28 @@
         </el-checkbox-group>
     </div>
     <div style="margin-top: 5rem;text-align: center">
-        <el-button style="width: 30%;height: 4rem" size="large" type="primary" plain round @click="submit">
+        <el-popconfirm width="400" :icon="null" @confirm="checkForm" @cancel="cancel">
+            <template #reference>
+                <el-button style="width: 20%;height: 4rem" size="large" plain round>
+                    <span style="font-size: 1.5rem;">提现</span>
+                </el-button>
+            </template>
+            <template #actions="{ confirm, cancel }">
+                <div style="text-align: center;font-size: 1.5rem">提现</div>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                    <div style="margin-top: 1rem;width: 100%;">
+                        <el-input v-model="withdrawalInfo.money" size="large" style="height: 3.5rem;width: 100%;font-size: 1rem" controls-position="right" placeholder="请输入金额">
+                            <template #append>元</template>
+                        </el-input>
+                    </div>
+                    <div style="margin-top: 1.5rem;margin-bottom: 10px;">
+                        <el-button size="large" @click="cancel">取消</el-button>
+                        <el-button size="large" type="primary" @click="confirm">确定</el-button>
+                    </div>
+                </div>
+            </template>
+        </el-popconfirm>
+        <el-button style="width: 20%;height: 4rem" size="large" type="primary" plain round @click="submit">
             <span style="font-size: 1.5rem;">充值</span>
         </el-button>
     </div>
@@ -39,6 +60,8 @@
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import request from "@/request/request";
+import {EditPen, Plus} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 
 onMounted(() => {
     getInfo();
@@ -76,10 +99,35 @@ const isCheckboxDisabled = () => {
 const recharge = ref()
 
 async function submit() {
+    if (!radio.value.length && !recharge.value) {
+        ElMessage.error('请选择充值金额或输入充值金额！');
+        return;
+    }
     if (!isInputDisabled()) {  // 输入框有值
         window.open("http://localhost:4090/alipay/pay?rate=" + recharge.value + "&id=" + userInfo.id)
     } else {
         window.open("http://localhost:4090/alipay/pay?rate=" + radio.value[0] + "&id=" + userInfo.id)
+    }
+}
+
+// 提现
+const withdrawalInfo = reactive({
+    id: '',
+    money: ''
+})
+function cancel() {
+    withdrawalInfo.money = '';
+    ElMessage.info('已取消');
+}
+async function checkForm() {
+    if (withdrawalInfo.money === '' || withdrawalInfo.money === null) {
+        ElMessage.error('请输入金额！')
+    } else {
+        withdrawalInfo.id = userInfo.id;
+        await request.post('/alipay/withdrawal',withdrawalInfo ).then(res => {
+            userInfo.balance = res.data;
+            ElMessage.success("提现成功");
+        })
     }
 }
 </script>

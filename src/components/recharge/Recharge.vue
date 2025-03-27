@@ -1,41 +1,29 @@
 <template>
     <el-card style="width: 50%;height: 90%;margin-left: 5%">
-        <el-tabs v-model="tabPane" type="card" >
-            <el-tab-pane label="余额" name="BalanceRelated">
-                <balance-related />
-            </el-tab-pane>
-            <el-tab-pane label="电可用额度" name="ElectricityLimit">
-                <electricity-limit />
-            </el-tab-pane>
-            <el-tab-pane label="水可用额度" >
-
-            </el-tab-pane>
-        </el-tabs>
+        <el-menu :default-active="router.currentRoute.value.path" mode="horizontal" @select="handleSelect" >
+            <el-menu-item index="/balanceRelated">
+                <span>余额</span>
+            </el-menu-item>
+            <el-menu-item index="/electricityLimit">
+                <span>电可用额度</span>
+            </el-menu-item>
+            <el-menu-item index="1">
+                <span>水可用额度</span>
+            </el-menu-item>
+        </el-menu>
+        <div style="margin-top: 1rem">
+            <router-view />
+        </div>
     </el-card>
 </template>
 
 <script setup>
-import request from "@/request/request";
-import {onMounted, reactive, ref} from "vue";
-import BalanceRelated from "@/components/recharge/BalanceRelated.vue";
-import ElectricityLimit from "@/components/recharge/ElectricityLimit.vue";
+import {ref} from "vue";
+import router from "@/router";
 
-const tabPane = ref('BalanceRelated')
-
-const availableLimit = reactive({
-    electricityAvailableLimit: '',
-    waterAvailableLimit: '',
-})
-async function getInfo() {
-    await request.get('/electricityMeter/getAvailableLimit').then(res => {
-        availableLimit.electricityAvailableLimit = res.data;
-    })
-    await request.get('/waterMeter/getAvailableLimit').then(res => {
-        availableLimit.waterAvailableLimit = res.data;
-    })
+function handleSelect(key, keyPath) {
+    router.push(key)
 }
-
-
 </script>
 
 
