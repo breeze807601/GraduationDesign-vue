@@ -7,7 +7,7 @@
             <el-menu-item index="/electricityLimit">
                 <span>电可用额度</span>
             </el-menu-item>
-            <el-menu-item index="1">
+            <el-menu-item index="/waterLimit">
                 <span>水可用额度</span>
             </el-menu-item>
         </el-menu>

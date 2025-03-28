@@ -78,6 +78,10 @@ const routes = [
                         path: '/electricityLimit',
                         component: () => import('@/components/recharge/ElectricityLimit.vue')
                     },
+                    {
+                        path: '/waterLimit',
+                        component: () => import('@/components/recharge/WaterLimit.vue')
+                    }
                 ]
             }
         ]
