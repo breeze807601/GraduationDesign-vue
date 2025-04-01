@@ -66,6 +66,14 @@ const routes = [
                 component: () => import('@/views/homepage/user/UNotice.vue')
             },
             {
+                path: '/uElectricity',
+                component: () => import('@/views/homepage/user/MyElectricity.vue')
+            },
+            {
+                path: '/uWater',
+                component: () => import('@/views/homepage/user/MyWater.vue')
+            },
+            {
                 path: '/personalHomepage',
                 component: () => import('@/views/homepage/user/PersonalHomepage.vue'),
                 redirect: '/balanceRelated',  // 重定向

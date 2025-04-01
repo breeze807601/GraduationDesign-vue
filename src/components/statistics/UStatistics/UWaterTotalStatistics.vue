@@ -38,7 +38,7 @@ const uWaterAggregateOption = {
         trigger: 'axis'
     },
     legend: {
-        data: ['总用水量','平均用水'],
+        data: ['总用水量'],
         right: 10,
         selected: {
             '总用水量': true,

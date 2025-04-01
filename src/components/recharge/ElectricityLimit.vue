@@ -154,10 +154,7 @@ async function submit() {
             ElMessage.success(res.data);
             getInfo();
         })
-    }).catch(() => {
-        ElMessage.info('已取消');
     })
-
 }
 </script>
 

@@ -34,7 +34,7 @@ const uWaterCostOption = {
         trigger: 'axis'
     },
     legend: {
-        data: ['用水总费用','平均水费'],
+        data: ['用水总费用'],
         right: 10,
         selected: {
             '用水总费用': true,

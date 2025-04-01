@@ -80,7 +80,6 @@ async function generateBill() {
     const formData = new FormData();
     formData.append('now', now.value);
     await request.post(props.isWater ? waterBill.value : electricityBill.value,formData).then(res => {
-        console.log(res.data);
         loading.value = false;
         emit('close');  // 关闭父组件窗口
     })

@@ -2,7 +2,7 @@
     <div style="width: 400px;">
         <el-row>
             <el-col :span="isAdmin ? 15 : 24">
-                <el-descriptions :direction="isAdmin ? '': 'vertical'"  border>
+                <el-descriptions :direction="isAdmin ? 'horizontal': 'vertical'"  border>
                     <el-descriptions-item align="center" width="140px" :label="title">{{ tariff.price }} {{ isWater ? '元 / 方' : '元 / 度' }}</el-descriptions-item>
                 </el-descriptions>
             </el-col>
